@@ -6,6 +6,13 @@
 #include <string>
 //TODO: Leer atchivo .asc
 #include <map>
+#include <set>
+
+set<string> rType = {"add", "sub", "sll", "or", "and", "slt" };
+set<string> lType = {"addi", "slli", "ori", "slti", "lw", "jalr"};
+set<string> sType = {"sw"};
+set<string> sbType = {"beq", "bne", "blt"};
+set<string> ubType = {"jal"};
 
 map<string, int> registerMap {
     {"x0",0},
@@ -41,7 +48,15 @@ map<string, int> registerMap {
     {"x30",30},
     {"x31",31},
 }
+/*
+    FUNCIONES A EJECUTAR
+        add
+        addi
+        sub
+        sll
+        
 
+*/
 using namespace std;
 
 class InstructionMemory : public sc_module
@@ -61,6 +76,8 @@ private:
 
     string getInstruction();
     void parseInstruction(string&, vector<string>& wordList);
+    string getFunctionType(const string&);
+
 };
 
 
