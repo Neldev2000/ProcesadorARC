@@ -1,2 +1,2 @@
-blt x1,x31,50
+jalr x0,x0
 

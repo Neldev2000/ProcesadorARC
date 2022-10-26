@@ -151,8 +151,7 @@ void InstructionMemory::encodeInstruction(const string& instType, const vector<s
       sc_bv<12> imm( (wordList[0] == "lw")? (stringNumberToInt(wordList[2])) : (stringNumberToInt(wordList[3])) );
       sc_bv<5> rs1((wordList[0] == "lw")? (stringNumberToInt(wordList[3].substr(1))) : (stringNumberToInt(wordList[2].substr(1))));
       sc_bv<5> rd( stringNumberToInt(wordList[1].substr(1)));
-      cout << "Code: " << ( imm.to_string() +"|"+ rs1.to_string()+"|" + funct3+"|" + rd.to_string()+"|" + \
-		opcode ).c_str() << endl << endl; 
+       
       sc_bv<32> temp( ( imm.to_string() + rs1.to_string() + funct3 + rd.to_string() + opcode ).c_str() );
       bitList = temp;
     }
@@ -174,16 +173,22 @@ void InstructionMemory::encodeInstruction(const string& instType, const vector<s
       sc_bv<5>  rs1( stringNumberToInt(wordList[1].substr(1)) );
       sc_bv<5>  rs2( stringNumberToInt(wordList[2].substr(1)) );
 
-      cout << "Imm: " << wordList[3] << " "<< imm << endl;
-      cout << "Code: " <<imm.range(12,12).to_string()+"|" + imm.range(10,5).to_string()+"|" + \
-	rs2.to_string()+"|" + rs1.to_string()+"|" + funct3+"|" +\
-	imm.range(4,1).to_string()+"|" + imm.range(11,11).to_string()+"|" + opcode << endl;
-      
+     
       sc_bv<32> temp( ( imm.range(12,12).to_string() + imm.range(10,5).to_string() + \
 			rs2.to_string() + rs1.to_string() + funct3 +\
 			imm.range(4,1).to_string() + imm.range(11,11).to_string() + opcode ).c_str());
       bitList = temp;
 
 	}
+    else if(instType == "UJ") {
+      // jal x0, x0
+      // 0   1   2
+      // imm [20] + imm[10,1] + imm[1] + imm[19,12]+rd + opcode
+      sc_bv<21> imm( stringNumberToInt(wordList[2].substr(1)) );
+      sc_bv<5>  rd ( stringNumberToInt(wordList[1].substr(1)) );
+
+      sc_bv<32> temp ( ( imm.range(20,20).to_string() + imm.range(10,1).to_string()+imm.range(1,1).to_string()+imm.range(19,12).to_string()+rd.to_string()+opcode ).c_str() );
+      bitList = temp;
+    }
     
 }
