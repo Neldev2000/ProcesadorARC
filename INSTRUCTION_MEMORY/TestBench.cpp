@@ -2,8 +2,13 @@
 
 TestBench::TestBench(sc_module_name modName) :
     sc_module(modName),
+   
+    controlUnit("ControlUnit"),
+    rs1("rs1"),
+    rs2("rs2"),
+    rd("rd"),
+    immGen("ImmGen"),
     programCounterIndex("ProgramCounterIndex"),
-    instructionDistribution("InstructionDistribution"),
     clock("Clock")
  {
     SC_THREAD(test);
@@ -25,6 +30,10 @@ void TestBench::test() {
     printData();
 }
 void TestBench::printData() {
-    std::cout << "PC Direction       : "<< programCounterIndex.read() << '\n'
-              << "Instruction Memory : "<< instructionDistribution.read() << '\n';
+    cout << "PC Direction      : " << programCounterIndex.read() << '\n'
+         << "Control Unit Bits : " << controlUnit.read() << '\n'
+         << "Rs1               : " << rs1.read() << '\n'
+         << "Rs2               : " << rs2.read() << '\n'
+         << "Rd                : " << rd.read()  << '\n'
+         << "Imm Gen           : " << immGen.read() << '\n';
 }

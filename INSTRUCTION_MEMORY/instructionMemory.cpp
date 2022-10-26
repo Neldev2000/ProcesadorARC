@@ -49,7 +49,11 @@ int stringNumberToInt(const string& str) {
 InstructionMemory::InstructionMemory(sc_module_name modName):
     sc_module(modName),
     programCounterIndex("ProgramCounterIndex"),
-    instructionDistribution("InstructionDistribution")
+    controlUnit("ControlUnit"),
+    rs1("rs1"),
+    rs2("rs2"),
+    rd("rd"),
+    immGen("ImmGen")
 
 {
     SC_METHOD(process);
@@ -57,7 +61,7 @@ InstructionMemory::InstructionMemory(sc_module_name modName):
     sensitive << programCounterIndex;
 }
 void InstructionMemory::process() {
-    instructionDistribution.write(  ~programCounterIndex.read());
+   // instructionDistribution.write(  ~programCounterIndex.read());
     string instruction = this->getInstruction();
     //cout << instruction << " -> ";
     vector< string > wordList;
@@ -69,6 +73,13 @@ void InstructionMemory::process() {
     this->encodeInstruction(functType, wordList, bitList);
 
     cout << "bitList: " << bitList << endl;
+
+    controlUnit.write( bitList.range(6,0) );
+    rs1.write(bitList.range(19,15));
+    rs2.write(bitList.range(24,20));
+    rd.write(bitList.range(11,7));
+
+    immGen.write( bitList );
 
 }
 ////////////////////////////////////////////////
