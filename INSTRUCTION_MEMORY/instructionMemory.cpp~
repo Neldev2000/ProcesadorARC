@@ -161,7 +161,7 @@ void InstructionMemory::encodeInstruction(const string& instType, const vector<s
 			  cout << "Code " << imm.range(11,5).to_string()+ "|" +rs2.to_string()+ "|" + rs1\
 					      .to_string()+ "|" + \
 					      funct3+ "|" + imm.range(4,0).to_string() + "|" + opcode<< endl;
-      sc_bv<32> temp((imm.range(11,5).to_string() +rs2.to_string() + rs1.to_string() + funct3 + imm.range(4,0).to_string()+opcode ).c_str());
+      sc_bv<32> temp((imm.range(11,5).to_string() +rs2.to_string() + rs1.to_string() + funct3 + imm.range(4,0).to_string() ).c_str());
       bitList = temp;
     }
 }

@@ -40,6 +40,5 @@ void TestBench::printData() {
          << "Rs1               : " << rs1.read() << '\n'
          << "Rs2               : " << rs2.read() << '\n'
          << "Rd                : " << rd.read()  << '\n'
-         << "Imm Gen           : " << immGen.read() << '\n'
-         << "============================================================\n\n";
+         << "Imm Gen           : " << immGen.read() << '\n';
 }
