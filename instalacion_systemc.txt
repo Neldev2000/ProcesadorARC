@@ -20,7 +20,7 @@ sudo mkdir $SYSTEMC_HOME
 
 sudo make install && echo "SystemC has been installed successfully"
 
-
+export LD_LIBRARY_PATH=/usr/local/systemc-2.3.0/lib-linux64
 cat << EOF > hello_world.cpp
 #include <systemc.h>
 class ModuleHelloWorld : public sc_module {

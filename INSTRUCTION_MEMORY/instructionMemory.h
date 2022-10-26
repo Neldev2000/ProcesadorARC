@@ -28,7 +28,16 @@ public:
     SC_CTOR(InstructionMemory);
     sc_in<sc_bv<32>> programCounterIndex;
     
-    //
+    // 00-06 Unidad de Control (7 bits)
+    // 19-15 Rs1 (5 bits)
+    // 24-20 Rs2 (5 bits) 
+    // 11-07 Rd (5 bits)
+    // 31-00 Imm Gen (32 bits)
+
+    sc_out<sc_bv<7>> controlUnit;
+    sc_out<sc_bv<5>> rs1, rs2, rd;
+    sc_out<sc_bv<32>> immGen;
+
 
 private:
  
