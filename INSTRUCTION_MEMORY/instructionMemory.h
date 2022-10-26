@@ -28,7 +28,8 @@ public:
     SC_CTOR(InstructionMemory);
     sc_in<sc_bv<32>> programCounterIndex;
     
-    sc_out<sc_bv<32>> instructionDistribution;
+    //
+
 private:
  
     ifstream programFile;
@@ -40,7 +41,7 @@ private:
     std::string getInstruction();
     void parseInstruction(std::string&, std::vector<std::string>& wordList);
     std::string getFunctionType(const std::string&);
-    void encodeInstruction(const std::string&, const std::vector<std::string>& );
+    void encodeInstruction(const std::string&, const std::vector<std::string>&, sc_bv<32>& bitList);
 };
 
 

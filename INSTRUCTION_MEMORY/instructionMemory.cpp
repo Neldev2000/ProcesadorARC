@@ -1,4 +1,6 @@
 #include "instructionMemory.h"
+#include <iostream>
+
 #define charToInt(x) x - '0'
 using namespace std;
 set<string> rType = {"add", "sub", "sll", "or", "and", "slt" };
@@ -15,7 +17,21 @@ map<string, string> opCodeMap = {
     {"beq" , "1100111"}, {"bne" , "1100111"}, {"blt", "1100111"},
     {"jal" , "1101111"} 
 };
+map<string, string> funct3Map = {
+    {"add" , "000"},{"sub"  , "000"}, {"sll", "001"}, {"or"  , "110"}, {"and", "111"}, {"slt" , "010"},
+    {"addi", "000"}, {"slli", "001"}, {"ori", "110"}, {"slti", "010"}, {"lw" , "010"}, {"jalr", "000"},
+    {"sw"  , "010"},
+    {"beq" , "000"}, {"bne" , "001"}, {"blt", "100"},
+    {"jal" , "000"} 
+};
 
+map<string, string> funct7Map = {
+    {"add" , "0000000"},{"sub"  , "0100000"}, {"sll", "0000000"}, {"or"  , "0000000"}, {"and", "111"}, {"slt" , "010"},
+    {"addi", "1111111"}, {"slli", "1111111"}, {"ori", "1111111"}, {"slti", "1111111"}, {"lw" , "1111111"}, {"jalr", "1111111"},
+    {"sw"  , "1111111"},
+    {"beq" , "1111111"}, {"bne" , "1111111"}, {"blt", "1111111"},
+    {"jal" , "1111111"} 
+};
 
 int stringNumberToInt(const string& str) {
     int decimals = str.length();
@@ -43,15 +59,21 @@ InstructionMemory::InstructionMemory(sc_module_name modName):
 void InstructionMemory::process() {
     instructionDistribution.write(  ~programCounterIndex.read());
     string instruction = this->getInstruction();
-
+    //cout << instruction << " -> ";
     vector< string > wordList;
     this->parseInstruction(instruction, wordList);
 
     string functType = this->getFunctionType(wordList[0]);
 
+    sc_bv<32> bitList;
+    this->encodeInstruction(functType, wordList, bitList);
+
+    cout << "bitList: " << bitList << endl;
 
 }
-
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
 string InstructionMemory::getInstruction() {
     int line = programCounterIndex.read().to_int() / 4;
     string instruction;
@@ -95,8 +117,19 @@ string InstructionMemory::getFunctionType(const string& funct) {
     return "null";
     
 }
-void InstructionMemory::encodeInstruction(const string& instType, const vector<string>& wordList) {
+void InstructionMemory::encodeInstruction(const string& instType, const vector<string>& wordList, sc_bv<32>& bitList) {
+    string funct7 = funct7Map[wordList[0]];
+    string funct3 = funct3Map[wordList[0]];
+    string opcode = opCodeMap[wordList[0]];
     if(instType == "r"){
+        // funct7 + rs2 + rs1 + funct3 + rd + opcode
 
+        sc_bv<5> rs1( stringNumberToInt(wordList[1].substr(1)) );
+        sc_bv<5> rs2( stringNumberToInt(wordList[2].substr(1)) );
+        sc_bv<5> rd(  stringNumberToInt(wordList[3].substr(1)) );
+      //  string res = funct7 + rs2.to_string() + rs1.to_string() + funct3 + rd.to_string() + opcode ;
+        sc_bv<32> temp((funct7 + rs2.to_string() + rs1.to_string() + funct3 + rd.to_string() + opcode).c_str());
+        bitList = temp;
+       // bitList = funct7 + rs2.to_string() + rs1.to_string() + funct3 + rd.to_string() + opcode;
     }
 }
