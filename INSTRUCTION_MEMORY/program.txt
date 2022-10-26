@@ -1,3 +1,2 @@
-addi x1,x2,5
-sub x3,x1,x2
-sw x3,8(x1)
+blt x1,x31,50
+

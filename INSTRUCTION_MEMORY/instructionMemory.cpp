@@ -1,7 +1,7 @@
 #include "instructionMemory.h"
 #include <iostream>
 
-#define charToInt(x) x - '0'
+#define charToInt(x) (int)(x - '0')
 using namespace std;
 set<string> rType = {"add", "sub", "sll", "or", "and", "slt" };
 set<string> lType = {"addi", "slli", "ori", "slti", "lw", "jalr"};
@@ -38,10 +38,12 @@ int stringNumberToInt(const string& str) {
     int res = 0;
     int k = 1;
     for(int i = decimals-1; i>=0; i--) {
-        res += k*charToInt(str[i]);
-        k *=10;
+      
+      res += k*charToInt(str[i]);
+      k *=10;
+   
+   
     }
-
 
     return res;
 }
@@ -143,6 +145,8 @@ void InstructionMemory::encodeInstruction(const string& instType, const vector<s
        // bitList = funct7 + rs2.to_string() + rs1.to_string() + funct3 + rd.to_string() + opcode;
     }
     else if( instType == "l" ){
+      //rd, rs1, imm
+      //rd, imm(rs1)
       //imm [11:0] + rs1 + funct3 + rd + opcode
       sc_bv<12> imm( (wordList[0] == "lw")? (stringNumberToInt(wordList[2])) : (stringNumberToInt(wordList[3])) );
       sc_bv<5> rs1((wordList[0] == "lw")? (stringNumberToInt(wordList[3].substr(1))) : (stringNumberToInt(wordList[2].substr(1))));
@@ -153,15 +157,33 @@ void InstructionMemory::encodeInstruction(const string& instType, const vector<s
       bitList = temp;
     }
     else if(instType == "s") {
+      // sw rs2, imm(rs1)
       // imm [11:5] + rs2 + rs1 + funct3 + imm[4:0]
       
       sc_bv<12> imm(stringNumberToInt(wordList[2]));
       sc_bv<5> rs1(stringNumberToInt(wordList[3].substr(1)));
       sc_bv<5> rs2(stringNumberToInt(wordList[1].substr(1)));
-			  cout << "Code " << imm.range(11,5).to_string()+ "|" +rs2.to_string()+ "|" + rs1\
-					      .to_string()+ "|" + \
-					      funct3+ "|" + imm.range(4,0).to_string() + "|" + opcode<< endl;
       sc_bv<32> temp((imm.range(11,5).to_string() +rs2.to_string() + rs1.to_string() + funct3 + imm.range(4,0).to_string()+opcode ).c_str());
       bitList = temp;
     }
+    else if(instType == "sb"){
+      //beq rs1, rs2, imm
+      // 0   1   2     3
+      //imm [12] + imm[10:5] + rs2 + rs1 + funct3 + imm[4:1] + imm[11] + opcode
+      sc_bv<13> imm( stringNumberToInt(wordList[3]) );
+      sc_bv<5>  rs1( stringNumberToInt(wordList[1].substr(1)) );
+      sc_bv<5>  rs2( stringNumberToInt(wordList[2].substr(1)) );
+
+      cout << "Imm: " << wordList[3] << " "<< imm << endl;
+      cout << "Code: " <<imm.range(12,12).to_string()+"|" + imm.range(10,5).to_string()+"|" + \
+	rs2.to_string()+"|" + rs1.to_string()+"|" + funct3+"|" +\
+	imm.range(4,1).to_string()+"|" + imm.range(11,11).to_string()+"|" + opcode << endl;
+      
+      sc_bv<32> temp( ( imm.range(12,12).to_string() + imm.range(10,5).to_string() + \
+			rs2.to_string() + rs1.to_string() + funct3 +\
+			imm.range(4,1).to_string() + imm.range(11,11).to_string() + opcode ).c_str());
+      bitList = temp;
+
+	}
+    
 }

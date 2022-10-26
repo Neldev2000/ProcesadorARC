@@ -23,15 +23,7 @@ void TestBench::test() {
 
     wait();
     printData();
-    sc_uint<32> data = programCounterIndex.read();
-    data += 4;
-    programCounterIndex.write(data);
-    wait();
-    printData();
-    data += 4;
-    programCounterIndex.write(data);
-    wait();
-    printData();
+    
     
 }
 void TestBench::printData() {
