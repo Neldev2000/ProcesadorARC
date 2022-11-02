@@ -2,7 +2,7 @@
 
 AndGate3::AndGate3(sc_module_name modName): 
     sc_module(modName),
-    inA("inA"), inB("inB"), inC("inC")
+    inA("inA"), inB("inB"), inC("inC"),
     output("output") {
 
 

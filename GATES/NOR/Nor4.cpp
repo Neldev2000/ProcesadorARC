@@ -3,11 +3,11 @@
 NorGate4::NorGate4(sc_module_name modName): 
     sc_module(modName),
     inA("inA"), inB("inB"),inC("inC"), inD("inD")
-    output("output") {
+    ,output("output") {
 
 
         SC_METHOD(process);
-        sensitive << inA, inB << inC << inD;
+        sensitive << inA << inB << inC << inD;
 
         dont_initialize();
     }

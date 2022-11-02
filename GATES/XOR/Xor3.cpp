@@ -3,7 +3,7 @@
 XorGate3::XorGate3(sc_module_name modName): 
     sc_module(modName),
     inA("inA"), inB("inB"),inC("inC")
-    output("output") {
+    ,output("output") {
 
 
         SC_METHOD(process);
