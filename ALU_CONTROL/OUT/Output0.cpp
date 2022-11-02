@@ -1,6 +1,6 @@
-#include "Output1.h"
+#include "Output0.h"
 
-Output1::Output1(sc_module_name modName):
+Output0::Output0(sc_module_name modName):
     sc_module(modName),
     aluOp0("ALUOp0"), aluOp1("ALUOp1"), aluOp2("ALUOp2"),
     i30("i30"), i14("i14"), i13("i13"), i12("i12"),

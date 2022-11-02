@@ -2,8 +2,12 @@
 #define ALU_CONTROL_H
 /* code */
 #include <systemc.h>
-#include "Output1.h"
 
+#include "Output0.h"
+#include "Output1.h"
+#include "Output2.h"
+
+#include "And3.h"
 
 class AluControl : public sc_module
 {
@@ -12,18 +16,18 @@ public:
 
     void process();
 
-    sc_in<bool> aluOp0,aluOp1, aluOp2 ;
-    sc_in< sc_bv<32> > instruction;
+    sc_inout<sc_bv<3>> aluOp;
+    sc_inout< sc_bv<32> > instruction;
 
-    sc_out<bool> aluFunction0, aluFunction1, aluFunction2;
-
+    sc_inout<sc_bv<3>> aluFunction;
+    
 
 private:
-  Output1 mod1;
-  Output2 mod2;
-  Output3 mod3;
+  Output0 bitRes0;
+  //Output1 bitRes1;
+  //Output2 bitRes2;
 
-  
+
 
 };
 

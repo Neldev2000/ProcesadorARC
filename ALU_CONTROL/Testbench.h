@@ -8,16 +8,17 @@ using namespace std;
 class Testbench: public sc_module {
 public:
     SC_CTOR(Testbench);
-    sc_in<bool> s;
-    sc_out<bool> aluOp0,aluOp1, aluOp2;
-    sc_out<bool> i30, i14, i13, i12;
+    sc_inout<sc_bv<3>> aluOp;
+    sc_inout< sc_bv<32> > instruction;
+
+    sc_inout<sc_bv<3>> aluFunction;
+
 
     sc_in_clk clock;
 
     void test();
 
 private:
-    void setData(int);
     void print();
 
 };
