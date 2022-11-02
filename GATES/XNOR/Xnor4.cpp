@@ -9,7 +9,6 @@ XnorGate4::XnorGate4(sc_module_name modName):
         SC_METHOD(process);
         sensitive << inA << inB << inC << inD;
 
-        dont_initialize();
     }
 
 

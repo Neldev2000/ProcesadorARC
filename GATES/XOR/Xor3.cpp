@@ -9,7 +9,6 @@ XorGate3::XorGate3(sc_module_name modName):
         SC_METHOD(process);
         sensitive << inA << inB << inC;
 
-        dont_initialize();
     }
 
 

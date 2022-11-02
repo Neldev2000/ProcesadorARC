@@ -8,8 +8,6 @@ NotGate::NotGate(sc_module_name modName):
 
         SC_METHOD(process);
         sensitive << inA;
-
-        dont_initialize();
     }
 
 
