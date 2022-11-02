@@ -1,5 +1,5 @@
 #include <systemc.h>
-#include "instructionMemory.h"
+#include "InstructionMemory.h"
 #include "TestBench.h"
 
 

@@ -1,4 +1,4 @@
-#include "instructionMemory.h"
+#include "InstructionMemory.h"
 #include <iostream>
 
 #define charToInt(x) (int)(x - '0')
