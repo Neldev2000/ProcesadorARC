@@ -19,9 +19,9 @@ class Output0: public sc_module {
 public:
     SC_CTOR(Output0);
 
-    sc_inout<bool> aluOp0, aluOp1, aluOp2;
-    sc_inout<bool> i30, i14, i13, i12;
-    sc_inout<bool> s;
+    sc_in<bool> aluOp0, aluOp1, aluOp2;
+    sc_in<bool> i30, i14, i13, i12;
+    sc_out<bool> s;
 
 private:
     sc_vector<AndGate> andGates;

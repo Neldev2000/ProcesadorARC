@@ -46,10 +46,10 @@ Output2::Output2(sc_module_name modName):
     notGates[1].output(channels[7]);
 
     andGates[3].inA(aluOp1);
-    andGates[3].inB(aluOp2);
+    andGates[3].inB(aluOp0);
     andGates[3].output(channels[8]);
 
-    andGates[4].inA(aluOp0);
+    andGates[4].inA(aluOp2);
     andGates[4].inB(channels[7]);
     andGates[4].output(channels[9]);
 

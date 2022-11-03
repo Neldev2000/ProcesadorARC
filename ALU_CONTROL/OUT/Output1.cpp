@@ -2,7 +2,7 @@
 
 Output1::Output1(sc_module_name modName):
     sc_module(modName),
-    aluOp0("ALUOp0"), aluOp1("ALUOp1"), aluOp2("ALUOp2"),
+    aluOp2("aluOp2"), aluOp1("ALUOp1"), aluOp0("aluOp0"),
     i30("i30"), i14("i14"), i13("i13"), i12("i12"),
     s("output"),
     norGates("norGates", 2),
@@ -38,16 +38,16 @@ Output1::Output1(sc_module_name modName):
 
     ////////////////////////////
 
-    norGates[1].inA(aluOp0);
-    norGates[1].inB(aluOp1);
+    norGates[1].inA(aluOp2);
+    norGates[1].inB(aluOp0);
     norGates[1].output(channels[6]);
 
     andGates[0].inA(channels[6]);
     andGates[0].inB(aluOp1);
     andGates[0].output(channels[7]);
 
-    andGates[1].inA(aluOp0);
-    andGates[1].inB(aluOp1);
+    andGates[1].inA(aluOp2);
+    andGates[1].inB(aluOp0);
     andGates[1].output(channels[8]);
 
     orGate4.inA(channels[7]);

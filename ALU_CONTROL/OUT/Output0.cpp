@@ -51,7 +51,7 @@ Output0::Output0(sc_module_name modName):
 
     andGates3[1].inA(aluOp0);
     andGates3[1].inB(aluOp1);
-    andGates3[1].inC(aluOp1);
+    andGates3[1].inC(aluOp2);
     andGates3[1].output(channels[8]);
 
     orGate3.inA(channels[6]);

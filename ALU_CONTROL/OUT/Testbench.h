@@ -11,7 +11,7 @@ public:
     sc_out<bool> aluOp0, aluOp1, aluOp2;
     sc_out<bool> i30, i14, i13, i12;
 
-    sc_in<bool> aluF0, aluF1, aluF2;
+    sc_in<bool> s;
 
 
     sc_in_clk clock;

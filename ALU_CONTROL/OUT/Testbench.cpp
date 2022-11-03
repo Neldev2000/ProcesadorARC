@@ -4,7 +4,7 @@ Testbench::Testbench(sc_module_name modName):
     sc_module(modName),
     aluOp0("ALUOp0"),aluOp1("ALUOp1"), aluOp2("ALUOp2"),
     i30("i30"), i14("i14"), i13("i13"), i12("i12"),
-    aluF0("aluF0"), aluF1("aluF1"), aluF2("aluF2"),
+    s("s"),
     clock("clock")
 {
 
@@ -16,7 +16,7 @@ Testbench::Testbench(sc_module_name modName):
 
 void Testbench::test() {
  
-    cout << "A2 | A1 | A0 || I30 | I14 | I13 | I12 || S2 | S1 | S0\n";
+    cout << "A2 | A1 | A0 || I30 | I14 | I13 | I12 || S |\n";
 
     for(int i = 0; i < 12; i++){
         setData(i);
@@ -32,9 +32,7 @@ void Testbench::print() {
         << std::setw(3) << std::setfill('0')<< this->i14.read() << " | "
         << std::setw(3) << std::setfill('0')<< this->i13.read() << " | "
         << std::setw(3) << std::setfill('0')<< this->i12.read() << " || "
-        << std::setw(2) << std::setfill('0')<< aluF2.read() << " | "
-        << std::setw(2) << std::setfill('0')<< aluF1.read() << " | "
-        << std::setw(2) << std::setfill('0')<< aluF0.read() << " | \n" ;
+        << s.read() << " | \n";
 
 }
 void Testbench::setData(int i) {

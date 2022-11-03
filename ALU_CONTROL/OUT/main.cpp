@@ -1,11 +1,11 @@
 #include <systemc.h>
 
-#include "Output2.h"
+#include "Output1.h"
 #include "Testbench.h"
 
 int sc_main(int argc, char *argv[]) {
 
-    Output2 out2("out2");
+    Output1 out2("out2");
     Testbench test("testBench");
 
 
