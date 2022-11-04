@@ -32,7 +32,7 @@ private:
 
 
 
-   sc_signal<bool> channels[];
+   sc_signal<bool> channels[9];
 
 
 
