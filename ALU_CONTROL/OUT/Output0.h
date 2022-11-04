@@ -7,36 +7,31 @@
 #include "And3.h"
 
 #include "Or.h"
-#include "Or3.h"
 
-#include "Nor.h"
-#include "Nor4.h"
+#include "Nand.h"
+#include "Nor3.h"
 
 #include "Not.h"
-#include "Xor.h"
 
 class Output0: public sc_module {
 public:
     SC_CTOR(Output0);
 
-    sc_in<bool> aluOp0, aluOp1, aluOp2;
+    sc_in<bool> aluOp3, aluOp2, aluOp1, aluOp0;
     sc_in<bool> i30, i14, i13, i12;
     sc_out<bool> s;
 
 private:
-    sc_vector<AndGate> andGates;
+    sc_vector<NotGate> notGates;
     sc_vector<AndGate3> andGates3;
-    
-    OrGate orGate;
-    OrGate3 orGate3;
+    sc_vector<AndGate> andGates;
+    sc_vector<OrGate> orGates;
 
-    NorGate4 norGate4;
-    NorGate norGate;
 
-    NotGate notGate;
-    XorGate xorGate;
+    NandGate nandGate;
+    NorGate3 norGate3;
 
-    sc_signal<bool> channels[9];
+    sc_signal<bool> channels[11];
 
 
 

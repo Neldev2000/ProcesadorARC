@@ -24,7 +24,7 @@ private:
     OrGate orGate;
 
 
-    sc_signal<bool> channels[9];
+    sc_signal<bool> channels[4];
 
 
 
