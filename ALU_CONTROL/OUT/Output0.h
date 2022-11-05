@@ -17,7 +17,7 @@ class Output0: public sc_module {
 public:
     SC_CTOR(Output0);
 
-    sc_in<bool> aluOp3, aluOp2, aluOp1, aluOp0;
+    sc_in<bool> aluOp0, aluOp1, aluOp2, aluOp3;
     sc_in<bool> i30, i14, i13, i12;
     sc_out<bool> s;
 

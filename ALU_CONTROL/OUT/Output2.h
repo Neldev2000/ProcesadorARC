@@ -4,12 +4,12 @@
 #include <systemc.h>
 
 #include "And.h"
+#include "And3.h"
 
 #include "Or.h"
-#include "Or3.h"
-
 #include "Nor.h"
-#include "Nor4.h"
+
+#include "Xnor.h"
 
 #include "Not.h"
 

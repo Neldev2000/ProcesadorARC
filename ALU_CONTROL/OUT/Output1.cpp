@@ -25,7 +25,7 @@ Output1::Output1(sc_module_name modName):
     andGate4.inB(channels[2]);
     andGate4.inC(i14);
     andGate4.inD(i13);
-    andGate.output(channels[3]);
+    andGate4.output(channels[3]);
 
     orGate.inA(channels[3]);
     orGate.inB(channels[1]);

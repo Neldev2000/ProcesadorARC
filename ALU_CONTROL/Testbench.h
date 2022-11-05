@@ -8,7 +8,7 @@ using namespace std;
 class Testbench: public sc_module {
 public:
     SC_CTOR(Testbench);
-    sc_out<bool> aluOp0, aluOp1, aluOp2;
+    sc_out<bool> aluOp0, aluOp1, aluOp2, aluOp3;
     sc_out<bool> i30, i14, i13, i12;
 
     sc_in<bool> aluF0, aluF1, aluF2;
@@ -19,9 +19,9 @@ public:
     void test();
 
 private:
-    void print();
+    void print(int i);
     void setData(int i);
-
+    
 };
 
 #endif
