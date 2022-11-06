@@ -2,16 +2,17 @@
 
 Output0::Output0(sc_module_name modName):
     sc_module(modName),
-    aluOp3("aluOp3"), aluOp0("ALUOp0"), aluOp1("ALUOp1"), aluOp2("ALUOp2"),
+    aluOp0("ALUOp0"), aluOp1("ALUOp1"), aluOp2("ALUOp2"), aluOp3("aluOp3"),
     i30("i30"), i14("i14"), i13("i13"), i12("i12"),
     s("output"),
-   notGates("notGates",3),
+    notGates("notGates",3),
    andGates3("andGates3", 2),
    andGates("andGates", 2),
    orGates("orGates", 3),
    nandGate("nandGate"),
    norGate3("norGate3")
 {
+
     notGates[0].inA(aluOp3);
     notGates[0].output(channels[0]);
 
