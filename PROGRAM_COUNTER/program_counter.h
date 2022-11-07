@@ -12,6 +12,7 @@ class program_counter: public sc_module {
   public:
     sc_in<sc_bv<32>> inpc;
     sc_out<sc_bv<32>> outpc;
+  //  sc_out<sc_bv<32>> outpc;
 
     SC_CTOR(program_counter);
 
