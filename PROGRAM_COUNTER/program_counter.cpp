@@ -1,14 +1,19 @@
 #include "program_counter.h"
 
-program_counter::program_counter(sc_module_name nm) : sc_module(nm), inpc("inpc"), outpc("outpc") {//inicializar puertos
+program_counter::program_counter(sc_module_name nm) : 
+  sc_module(nm), 
+  inputCounter("inputCounter"), 
+  outInstruction("outInstruction"), outAdd4("outAdd4"), outAddBranch("outAddBranch") {//inicializar puertos
 
-  SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion
-  sensitive << inpc; // estas son las que van a cambiar
+  SC_METHOD(operation);
+  sensitive << inputCounter;
   dont_initialize();
+
 }
 
 void program_counter::operation() { //  variableout.write(dato in);
-outpc.write(inpc.read());
-
+  outInstruction.write(inputCounter.read());
+  outAdd4.write(inputCounter.read());
+  outAddBranch.write(inputCounter.read());
 }
 

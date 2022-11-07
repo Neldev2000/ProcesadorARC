@@ -1,21 +1,17 @@
-#include "testbench_pc.h"
+  #include "testbench_pc.h"
 #include <iostream>
 
 testbench::testbench(sc_module_name mn) : sc_module(mn) {
   SC_THREAD(test); // selecciono funcion de arranque
   sensitive << clkIn.pos(); //pos cuando se;al es 1
-  //dont_initialize();
+  dont_initialize();
 }
 
 void testbench::print() {
 
-  std::cout << inadd.read()<< " lo que entra       "; 
-
-  std::cout << oneli.read()<< " out_if_next_line   "; 
-
-  std::cout << ojump.read() << " out_if_jump        ";
-
-  std::cout << om.read() << " out_mux_choice     ";
+  std::cout << "Direccion Siguiente linea: " << oneli << '\n' 
+          << "Direccion linea branching: " << ojump << '\n' 
+          << "Siguiente instruccion " << inInstruction << " " << inAdd4 << " " << inAddBranch << '\n';
   
 }
 
@@ -25,7 +21,7 @@ void testbench::test() {
 
 oneli.write("100");
 ojump.write("11100");
-om.write("1");
+om.write(1);
 wait();
 
  // genero entradas espero e imprimo, es paralelizado, si no espero se ejcuta simultaneamente la impresion y asignacion
