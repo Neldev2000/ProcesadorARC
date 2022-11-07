@@ -4,12 +4,12 @@
 # Versión de SYSTEMC
 	VERSION = systemc-2.3.3
 # Especifique los archivos .cpp
-	SRCS = main.cpp AluControl.cpp ./OUT/Output0.cpp ./OUT/Output1.cpp ./OUT/Output2.cpp Testbench.cpp ../GATES/NAND/Nand.cpp ../GATES/AND/And.cpp ../GATES/AND/And3.cpp ../GATES/AND/And4.cpp ../GATES/NOR/Nor.cpp ../GATES/NOR/Nor3.cpp ../GATES/NOR/Nor4.cpp ../GATES/NOT/Not.cpp ../GATES/OR/Or.cpp ../GATES/OR/Or3.cpp ../GATES/OR/Or4.cpp ../GATES/XNOR/Xnor.cpp ../GATES/XNOR/Xnor3.cpp ../GATES/XNOR/Xnor4.cpp   ../GATES/XOR/Xor.cpp ../GATES/XOR/Xor3.cpp ../GATES/XOR/Xor4.cpp
+	SRCS = main.cpp testbench_pc.cpp program_counter.cpp Mux4.cpp
 # Nombre del ejecutable
-	TARGET = test.out
+	TARGET = test
 #
 # Instrucciones de uso:
-# 
+#
 # El makefile le provee de varios comandos para su comodidad en la
 # compilación, a continuación están más importantes:
 #
@@ -33,7 +33,7 @@
 
 
 CC  = g++
-X64 = 
+X64 =
 SYSTEMC_HOME_BY_VERSION = /usr/local/$(VERSION)
 
 ifeq ($(shell uname -m), x86_64)
@@ -44,18 +44,17 @@ ifeq ($(VERSION),systemc-2.3.1)
 	CC = g++ -std=c++98
 endif
 
-INCDIR  = -I. -I.. -I./OUT/ -I../GATES/NAND/ -I../GATES/AND/  -I../GATES/NOR -I../GATES/NOT -I../GATES/OR -I../GATES/XOR -I../GATES/XNOR -I$(SYSTEMC_HOME_BY_VERSION)/include
+INCDIR  = -I. -I.. -I$(SYSTEMC_HOME_BY_VERSION)/include
 LIBDIR  = -L. -L.. -L$(SYSTEMC_HOME_BY_VERSION)/lib-linux$(X64)
 LIBS    = -lm -lsystemc
 
 CFLAGS  = -g -Wno-deprecated -Wall
 OBJS   = $(SRCS:.cpp=.o)
-NOTDIR_OBJS = $(notdir $(OBJS))
 
 .SUFFIXES: .cpp .o
 
 $(TARGET): $(OBJS) $(SRCH)
-	$(CC) $(CFLAGS) $(INCDIR) $(LIBDIR) -o $@ $(NOTDIR_OBJS) $(LIBS) 2>&1 | c++filt
+	$(CC) $(CFLAGS) $(INCDIR) $(LIBDIR) -o $@ $(OBJS) $(LIBS) 2>&1 | c++filt
 
 all: $(TARGET)
 
@@ -63,7 +62,7 @@ all: $(TARGET)
 	$(CC) $(CFLAGS) $(INCDIR) -c $<
 
 clean:
-	rm -f $(NOTDIR_OBJS) *~ $(TARGET) *.bak $(TARGET).stackdump *.vcd
+	rm -f $(OBJS) *~ $(TARGET) *.bak $(TARGET).stackdump *.vcd
 
 run:
 	./$(TARGET)

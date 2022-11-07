@@ -4,7 +4,7 @@
 # Versión de SYSTEMC
 	VERSION = systemc-2.3.3
 # Especifique los archivos .cpp
-	SRCS = main.cpp Output0.cpp Output1.cpp Output2.cpp Testbench.cpp ../../GATES/AND/And.cpp ../../GATES/AND/And3.cpp ../../GATES/AND/And4.cpp ../../GATES/NOR/Nor.cpp ../../GATES/NOR/Nor3.cpp ../../GATES/NOR/Nor4.cpp ../../GATES/NOT/Not.cpp ../../GATES/OR/Or.cpp ../../GATES/OR/Or3.cpp ../../GATES/OR/Or4.cpp ../../GATES/XNOR/Xnor.cpp ../../GATES/XNOR/Xnor3.cpp ../../GATES/XNOR/Xnor4.cpp   ../../GATES/XOR/Xor.cpp ../../GATES/XOR/Xor3.cpp ../../GATES/XOR/Xor4.cpp
+	SRCS = main.cpp Output0.cpp Output1.cpp Output2.cpp Testbench.cpp ../../GATES/NAND/Nand.cpp ../../GATES/AND/And.cpp ../../GATES/AND/And3.cpp ../../GATES/AND/And4.cpp ../../GATES/NOR/Nor.cpp ../../GATES/NOR/Nor3.cpp ../../GATES/NOR/Nor4.cpp ../../GATES/NOT/Not.cpp ../../GATES/OR/Or.cpp ../../GATES/OR/Or3.cpp ../../GATES/OR/Or4.cpp ../../GATES/XNOR/Xnor.cpp ../../GATES/XNOR/Xnor3.cpp ../../GATES/XNOR/Xnor4.cpp   ../../GATES/XOR/Xor.cpp ../../GATES/XOR/Xor3.cpp ../../GATES/XOR/Xor4.cpp
 # Nombre del ejecutable
 	TARGET = test.out
 #
@@ -44,7 +44,7 @@ ifeq ($(VERSION),systemc-2.3.1)
 	CC = g++ -std=c++98
 endif
 
-INCDIR  = -I. -I.. -I../../GATES/AND/  -I../../GATES/NOR -I../../GATES/NOT -I../../GATES/OR -I../../GATES/XOR -I../../GATES/XNOR -I$(SYSTEMC_HOME_BY_VERSION)/include
+INCDIR  = -I. -I.. -I../../GATES/NAND/ -I../../GATES/AND/  -I../../GATES/NOR -I../../GATES/NOT -I../../GATES/OR -I../../GATES/XOR -I../../GATES/XNOR -I$(SYSTEMC_HOME_BY_VERSION)/include
 LIBDIR  = -L. -L.. -L$(SYSTEMC_HOME_BY_VERSION)/lib-linux$(X64)
 LIBS    = -lm -lsystemc
 

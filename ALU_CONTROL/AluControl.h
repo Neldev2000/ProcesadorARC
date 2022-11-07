@@ -7,26 +7,23 @@
 #include "Output1.h"
 #include "Output2.h"
 
-#include "And3.h"
-
 class AluControl : public sc_module
 {
 public:
     SC_CTOR(AluControl);
 
-    void process();
+   // void process();
 
-    sc_inout<sc_bv<3>> aluOp;
-    sc_inout< sc_bv<32> > instruction;
+    sc_in<bool> aluOp0, aluOp1, aluOp2, aluOp3;
+    sc_in<bool> i30, i14, i13, i12;
 
-    sc_inout<sc_bv<3>> aluFunction;
+    sc_out<bool> aluF0, aluF1, aluF2;
     
 
 private:
   Output0 bitRes0;
-  //Output1 bitRes1;
-  //Output2 bitRes2;
-
+  Output1 bitRes1;
+  Output2 bitRes2;
 
 
 };
