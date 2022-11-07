@@ -40,7 +40,7 @@ AluControl::AluControl(sc_module_name modName):
     bitRes2.i13(i13);
     bitRes2.i12(i12);
 
-    bitRes2.s(aluF2);
+    bitRes2.s(aluF);
 
 }
 

@@ -9,13 +9,7 @@ Mux4::Mux4(sc_module_name nm) : sc_module(nm) {
 
 void Mux4::operation() {
 
-  if (im==0) {
-    outmux.write(inneli.read());
-  }
-
-  if (im==1) {
-    outmux.write(injump.read());
-  }
+  outmux.write( ( im.read()==1? injump.read() : inneli.read() ) );
 
 }
 

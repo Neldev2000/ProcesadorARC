@@ -11,7 +11,7 @@ class testbench : public sc_module {
      * Y la salida será los datos de entrada del módulo a probar.
     */
 	  sc_in<bool> clkIn;
-      sc_in<sc_bv<32>> inadd, inim;
+      sc_in<sc_bv<32>> inInstruction, inAdd4, inAddBranch;
       sc_out<sc_bv<32>> oneli,ojump;
       sc_out<bool> om;
 

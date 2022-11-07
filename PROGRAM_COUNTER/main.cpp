@@ -11,13 +11,13 @@ int sc_main(int argv, char* argc[]) {
   sc_clock clock("clock", period, 0.5, delay, true);
 
   // Creando instancias de los módulos
-  program_counter program_counter("pro_cou");
-  testbench tb("testbench");
+ 
   Mux4 mux4("mux4");
-
+   program_counter program_counter("pro_cou");
+  testbench tb("testbench");
   // Necesitaremos cables para conectar los módulos
   sc_signal<bool> cm;
-  sc_signal<sc_bv<32>> cmuxpc, cpctb1, cpctb2,cneli,cjump;
+  sc_signal<sc_bv<32>> cmuxpc, chanAdd4, chanInstruction, chanAddBranch,cneli,cjump;
   //sc_signal<bool> fSg;
 
   // Conectando los módulos a los cables
@@ -27,12 +27,14 @@ int sc_main(int argv, char* argc[]) {
   mux4.im(cm);
   mux4.outmux(cmuxpc);
 
-  program_counter.inpc(cmuxpc);
-  program_counter.outpc(cpctb1);
-  program_counter.outpc(cpctb2);
+  program_counter.inputCounter(cmuxpc);
+  program_counter.outInstruction(chanInstruction);
+  program_counter.outAdd4(chanAdd4);
+  program_counter.outAddBranch(chanAddBranch);
   
-  tb.inadd(cpctb1);
-  tb.inim(cpctb2);
+  tb.inInstruction(chanInstruction);
+  tb.inAdd4(chanAdd4);
+  tb.inAddBranch(chanAddBranch);
   tb.oneli(cneli);
   tb.ojump(cjump);
   tb.om(cm);
