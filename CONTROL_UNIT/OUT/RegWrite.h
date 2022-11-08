@@ -1,6 +1,7 @@
 #ifndef REG_WRITE_H
 #define REG_WRITE_H
  /* code */
+#include <systemc.h>
 
 class RegWrite : public sc_module
 {
@@ -14,6 +15,8 @@ private:
     AndGate andGate;
     AndGate4 andGate3;
     NorGate3 norGate3;
+
+    sc_signal<bool> channels[8];
 };
 
 #endif //REG_WRITE_H

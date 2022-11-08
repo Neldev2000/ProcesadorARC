@@ -1,6 +1,9 @@
 #ifndef ALU_SRC_H
 #define ALU_SRC_H
 /* code */
+
+#include <systemc.h>
+
 #include "And.h"
 #include "And4.h"
 #include "Not.h"
