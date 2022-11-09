@@ -1,7 +1,7 @@
 #include "MemWrite.h"
 
 MemWrite::MemWrite(sc_module_name modName):
-    sc_module(modName)
+    sc_module(modName),
     i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
     s("output"),
     andGate("andGate"), norGate4("norGate4")

@@ -2,7 +2,7 @@
 
 AluOp0::AluOp0(sc_module_name modName):
     sc_module(modName),
-    i6("i6"), i5("i5") i4("i4"), i3("i3"), i2("i2"),
+    i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
     s("output"),
     norGate4("norGate4"), andGate("andGate"), norGate("norGate"), andGate3("andGate3"), orGate("orGate")
  {
@@ -22,7 +22,7 @@ AluOp0::AluOp0(sc_module_name modName):
 
     andGate3.inA(i6);
     andGate3.inB(i5);
-    andGate3.inB(channels[2]);
+    andGate3.inC(channels[2]);
     andGate3.output(channels[3]); // to orGate
 
     orGate.inA(channels[1]);

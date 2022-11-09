@@ -1,6 +1,6 @@
 #include <systemc.h>
 
-#include "AluControl.h"
+#include "ControlUnit.h"
 #include "Testbench.h"
 
 #include <vector>
@@ -8,50 +8,64 @@ using namespace std;
 
 int sc_main(int argc, char *argv[]) {
 
-    AluControl aluControl("aluControl");
+    ControlUnit controlUnit("controlUnit");
     Testbench test("testBench");
 
 
-    sc_signal<bool> channelALUOp0, channelALUOp1, channelALUOp2, channelALUOp3, aluF0, aluF1, aluF2;
-    sc_signal<bool> i30, i14, i13, i12;
+    sc_signal<bool> regWrite, memWrite, memToReg, memRead, branch, aluSrc, aluOp3, aluOp2, aluOp1, aluOp0;
+    sc_signal<bool> i6, i5, i4, i3, i2;
 
     const sc_time period(10, SC_NS);
 
     sc_clock clock("clock", period);
 
-    aluControl.aluOp0(channelALUOp0);
-    test.aluOp0(channelALUOp0);
+    controlUnit.i6(i6);
+    test.i6(i6);
 
-    aluControl.aluOp1(channelALUOp1);
-    test.aluOp1(channelALUOp1);
+    controlUnit.i5(i5);
+    test.i5(i5);
 
-    aluControl.aluOp2(channelALUOp2);
-    test.aluOp2(channelALUOp2);
+    controlUnit.i4(i4);
+    test.i4(i4);
 
-    aluControl.aluOp3(channelALUOp3);
-    test.aluOp3(channelALUOp3);
+    controlUnit.i3(i3);
+    test.i3(i3);
 
-    aluControl.i30(i30);
-    test.i30(i30);
+    controlUnit.i2(i2);
+    test.i2(i2);
+    
+    /////////////////////////////////
+    // regWrite, memWrite, memToReg, memRead, branch, aluSrc, aluOp3, aluOp2, aluOp1, aluOp0;
 
-    aluControl.i14(i14);
-    test.i14(i14);
+    controlUnit.regWrite(regWrite);
+    test.regWrite(regWrite);
 
-    aluControl.i13(i13);
-    test.i13(i13);
+    controlUnit.memWrite(memWrite);
+    test.memWrite(memWrite);
 
-    aluControl.i12(i12);
-    test.i12(i12);
+    controlUnit.memToReg(memToReg);
+    test.memToReg(memToReg);
 
-    aluControl.aluF0(aluF0);
-    test.aluF0(aluF0);
+    controlUnit.memRead(memRead);
+    test.memRead(memRead);
 
-    aluControl.aluF1(aluF1);
-    test.aluF1(aluF1);
+    controlUnit.branch(branch);
+    test.branch(branch);
 
-    aluControl.aluF2(aluF2);
-    test.aluF2(aluF2);
+    controlUnit.aluSrc(aluSrc);
+    test.aluSrc(aluSrc);
 
+    controlUnit.aluOp3(aluOp3);
+    test.aluOp3(aluOp3);
+
+    controlUnit.aluOp2(aluOp2);
+    test.aluOp2(aluOp2);
+
+    controlUnit.aluOp1(aluOp1);
+    test.aluOp1(aluOp1);
+
+    controlUnit.aluOp0(aluOp0);
+    test.aluOp0(aluOp0);
     test.clock(clock);
 
     sc_start();

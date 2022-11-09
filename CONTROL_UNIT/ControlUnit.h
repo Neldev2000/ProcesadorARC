@@ -23,15 +23,15 @@ public:
     sc_out<bool> regWrite, memWrite, memToReg, memRead, branch, aluSrc, aluOp3, aluOp2, aluOp1, aluOp0;
 private:
     RegWrite _regWrite;
-    MemWrite _memWrite
-    MemtoReg _memToReg
-    MemRead  _memRead
-    Branch   _branch
-    AluSrc   _aluSrc
-    AluOp3   _aluOp3
-    AluOp2   _aluOp2
-    AluOp1   _aluOp1
-    AluOp0   _aluOp0
+    MemWrite _memWrite;
+    MemtoReg _memToReg;
+    MemRead  _memRead;
+    Branch   _branch;
+    AluSrc   _aluSrc;
+    AluOp3   _aluOp3;
+    AluOp2   _aluOp2;
+    AluOp1   _aluOp1;
+    AluOp0   _aluOp0;
 };
 
 

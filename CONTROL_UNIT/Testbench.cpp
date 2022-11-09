@@ -2,10 +2,10 @@
 
 Testbench::Testbench(sc_module_name modName):
     sc_module(modName),
-    aluOp0("ALUOp0"),aluOp1("ALUOp1"), aluOp2("ALUOp2"), aluOp3("aluOp3"),
-    i30("i30"), i14("i14"), i13("i13"), i12("i12"),
-    aluF0("aluF0"), aluF1("aluF1"), aluF2("aluF2"),
-    clock("clock")
+    i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
+    regWrite("regWrite"), memWrite("memWrite"), memToReg("memToReg"), memRead("memRead"), branch("branch"), 
+    aluSrc("aluSrc"), aluOp3("aluOp3"), aluOp2("aluOp2"), aluOp1("aluOp1"), aluOp0("aluOp0")
+    ,clock("clock")
 {
 
     SC_THREAD(test);
@@ -16,7 +16,7 @@ Testbench::Testbench(sc_module_name modName):
 
 void Testbench::test() {
  
-    cout << "A3 | A2 | A1 | A0 || I30 | I14 | I13 | I12 || S2 | S1 | S0\n";
+    cout << "i6 | i5 | i4 | i3 | i2 || ALUSrc | MemtoReg | RegWrite | MemRead | MemWrite | Branch | ALUOp3 | ALUOp2 | ALUOp1 | ALUOp0 | \n";
 
     for(int i = 0; i < 12; i++){
         setData(i);
@@ -26,45 +26,48 @@ void Testbench::test() {
 }
 void Testbench::print(int i) {
 
-    bool s2[] = {0,0,0,0,1,1,1,1,0,0,1,0,1,1};
-    bool s1[] = {0,0,1,1,0,0,1,1,0,0,0,1,1,0};
-    bool s0[] = {0,1,0,1,0,1,0,0,0,1,0,1,1,1};
+    bool regWriteRes[] = {1,1,0,0,0,1,1,1,0,0,1,1};
+    bool memWriteRes[] = {0,0,1,0,0,0,0,0,0,0,0,0};
+    bool memToRegRes[] = {0,1,0,0,0,0,0,0,0,0,0,0};
+    bool memReadRes[]  = {0,1,0,0,0,0,0,0,0,0,0,0};
+    bool branchRes[]   = {0,0,0,1,1,0,0,0,1,1,0,0};
+    bool aluSrcRes[]   = {1,1,1,0,0,1,1,1,0,0,1,0};
+    bool aluOp3Res[]   = {0,0,0,0,0,0,0,0,0,0,0,1};
+    bool aluOp2Res[]   = {0,0,0,0,0,0,1,1,1,1,1,0};
+    bool aluOp1Res[]   = {0,0,0,0,1,1,0,0,0,1,1,0};
+    bool aluOp0Res[]   = {0,0,0,1,0,1,0,1,1,0,0,0};
+    
 
-    cout << std::setw(2) << std::setfill('0') << aluOp3.read() << " | "
-        << std::setw(2) << std::setfill('0') << aluOp2.read() << " | "
-         << std::setw(2) << std::setfill('0')<< aluOp1.read() << " | "
-         << std::setw(2) << std::setfill('0')<< aluOp0.read() << " || "
-         << std::setw(3) << std::setfill('0')<< this->i30.read() << " | "
-        << std::setw(3) << std::setfill('0')<< this->i14.read() << " | "
-        << std::setw(3) << std::setfill('0')<< this->i13.read() << " | "
-        << std::setw(3) << std::setfill('0')<< this->i12.read() << " || "
-        << std::setw(2) << std::setfill('0')<< ((aluF2.read() == s2[i])? "vv" : "xx") << " | "
-        << std::setw(2) << std::setfill('0')<< ((aluF1.read() == s1[i])? "vv" : "xx")<< " | "
-        << std::setw(2) << std::setfill('0')<< ((aluF0.read() == s0[i])? "vv" : "xx") << " | \n" ;
 
+    cout << std::setw(2) << std::setfill('0') << i6.read() << " | "
+         << std::setw(2) << std::setfill('0') << i5.read() << " | "
+         << std::setw(2) << std::setfill('0')<< i4.read() << " | "
+         << std::setw(2) << std::setfill('0')<< i3.read() << " | "
+         << std::setw(2) << std::setfill('0')<< i2.read() << " || "
+         << (aluSrc.read() == aluSrcRes[i]? "vvvvvv" : "xxxxxx") << " | "
+         << (memToReg.read() == memToRegRes[i]? "vvvvvvvv" : "xxxxxxxx") << " | "
+         << (regWrite.read() == regWriteRes[i]? "vvvvvvvv" : "xxxxxxxx") << " | "
+         << (memRead.read() == memReadRes[i]? "vvvvvvv" : "xxxxxxx") << " | "
+         << (memWrite.read() == memWriteRes[i]? "vvvvvvvv" : "xxxxxxxx") << " | "
+         << (branch.read() == branchRes[i]? "vvvvvv" : "xxxxxx") << " | "
+         << (aluOp3.read() == aluOp3Res[i]? "vvvvvv" : "xxxxxx") << " | "
+         << (aluOp2.read() == aluOp2Res[i]? "vvvvvv" : "xxxxxx") << " | "
+         << (aluOp1.read() == aluOp1Res[i]? "vvvvvv" : "xxxxxx") << " | "
+         << (aluOp0.read() == aluOp0Res[i]? "vvvvvv" : "xxxxxx") << " | " << endl; 
 }
 void Testbench::setData(int i) {
-    bool a3[] = {0,0,0,0,0,0,0,0,1,1,1,1,1,1};
-    bool a2[] = {0,0,0,0,1,1,1,1,1,1,1,1,1,1};
-    bool a1[] = {0,0,1,1,0,0,1,1,1,1,1,1,1,1};
-    bool a0[] = {0,1,0,1,0,1,0,1,1,1,1,1,1,1};
 
-    bool i30[] ={0,0,0,0,0,0,0,0,0,1,0,0,0,0};
-    bool i14[] ={0,0,0,0,0,0,0,0,0,0,0,1,1,0};
-    bool i13[] ={0,0,0,0,0,0,0,0,0,0,0,1,1,1};
-    bool i12[] ={0,0,0,0,0,0,0,0,0,0,1,0,1,0};
+    bool i6[] ={0,0,0,1,1,0,0,0,1,1,1,0};
+    bool i5[] ={0,0,1,1,1,0,0,0,1,1,1,1};
+    bool i4[] ={1,0,0,0,0,1,1,1,0,0,0,1};
+    bool i3[] ={0,0,0,0,0,0,0,0,0,0,1,0};
+    bool i2[] ={0,0,0,1,1,0,0,0,0,1,1,0};
 
-
-
-    aluOp0.write(a0[i]);
-    aluOp1.write(a1[i]);
-    aluOp2.write(a2[i]);
-    aluOp3.write(a3[i]);
-
-    this->i30.write(i30[i]);
-    this->i14.write(i14[i]);
-    this->i13.write(i13[i]);
-    this->i12.write(i12[i]);
+    this->i6.write(i6[i]);
+    this->i5.write(i5[i]);
+    this->i4.write(i4[i]);
+    this->i3.write(i3[i]);
+    this->i2.write(i2[i]);
 
 }
 

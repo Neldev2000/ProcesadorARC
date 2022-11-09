@@ -3,6 +3,8 @@
 
 #include <systemc.h>
 
+#include "Nor5.h"
+
 class MemRead: public sc_module {
 public:
     SC_CTOR(MemRead);

@@ -11,8 +11,6 @@ public:
     sc_in<bool> regWrite, memWrite, memToReg, memRead, branch, aluSrc, aluOp3, aluOp2, aluOp1, aluOp0;
     sc_out<bool> i6, i5, i4, i3, i2;
 
-    sc_in<bool> aluF0, aluF1, aluF2;
-
 
     sc_in_clk clock;
 

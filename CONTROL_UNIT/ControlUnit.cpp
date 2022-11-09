@@ -7,7 +7,7 @@ ControlUnit::ControlUnit(sc_module_name modName):
  aluSrc("aluSrc"), aluOp3("aluOp3"), aluOp2("aluOp2"), aluOp1("aluOp1"), aluOp0("aluOp0"),
 
  _regWrite("_regWrite"), _memWrite("_memWrite"), _memToReg("_memToReg"), _memRead("_memRead"), _branch("_branch"), 
- _aluSrc("_aluSrc"), _aluOp3("_aluOp3"), _aluOp2("_aluOp2"), _aluOp1("_aluOp1"), _aluOp0("_aluOp0"),
+ _aluSrc("_aluSrc"), _aluOp3("_aluOp3"), _aluOp2("_aluOp2"), _aluOp1("_aluOp1"), _aluOp0("_aluOp0")
  {
 
     //////////// REGWRITE
@@ -57,13 +57,6 @@ ControlUnit::ControlUnit(sc_module_name modName):
     _aluSrc.i2(i2);
     _aluSrc.s(aluSrc);
 
-    /////////// _memRead
-    _aluOp3.i6(i6);
-    _aluOp3.i5(i5);
-    _aluOp3.i4(i4);
-    _aluOp3.i3(i3);
-    _aluOp3.i2(i2);
-    _aluOp3.s(aluOp3);
 
     ////////// _memRead
     _aluOp3.i6(i6);
