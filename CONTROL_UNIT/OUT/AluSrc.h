@@ -13,7 +13,7 @@ class AluSrc : public sc_module
 {
 public:
     SC_CTOR(AluSrc);
-    sc_in<bool> i6, i5 i4, i3, i2;
+    sc_in<bool> i6, i5, i4, i3, i2;
     sc_out<bool> s;
 private:
     AndGate andGate;

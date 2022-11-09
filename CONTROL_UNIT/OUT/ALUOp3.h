@@ -12,7 +12,7 @@ class AluOp3 : sc_module
 public:
     SC_CTOR(AluOp3);
 
-    sc_in<bool> i6, i5 i4, i3, i2;
+    sc_in<bool> i6, i5, i4, i3, i2;
     sc_out<bool> s;
 
 private:
