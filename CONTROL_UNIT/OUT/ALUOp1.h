@@ -25,7 +25,7 @@ private:
     NotGate notGate;
     OrGate orGate;
 
-    sc_signal<bool> channels[];
+    sc_signal<bool> channels[4];
 
 };
 
