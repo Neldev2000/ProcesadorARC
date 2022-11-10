@@ -4,7 +4,7 @@ Testbench::Testbench(sc_module_name modName):
     sc_module(modName),
     i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
     regWrite("regWrite"), memWrite("memWrite"), memToReg("memToReg"), memRead("memRead"), branch("branch"), 
-    aluSrc("aluSrc"), aluOp3("aluOp3"), aluOp2("aluOp2"), aluOp1("aluOp1"), aluOp0("aluOp0")
+    aluSrc("aluSrc"), aluOp2("aluOp2"), aluOp1("aluOp1"), aluOp0("aluOp0")
     ,clock("clock")
 {
 
@@ -16,7 +16,7 @@ Testbench::Testbench(sc_module_name modName):
 
 void Testbench::test() {
  
-    cout << "i6 | i5 | i4 | i3 | i2 || ALUSrc | MemtoReg | RegWrite | MemRead | MemWrite | Branch | ALUOp3 | ALUOp2 | ALUOp1 | ALUOp0 | \n";
+    cout << "i6 | i5 | i4 | i3 | i2 || ALUSrc | MemtoReg | RegWrite | MemRead | MemWrite | Branch | ALUOp2 | ALUOp1 | ALUOp0 | \n";
 
     for(int i = 0; i < 12; i++){
         setData(i);
@@ -32,10 +32,9 @@ void Testbench::print(int i) {
     bool memReadRes[]  = {0,1,0,0,0,0,0,0,0,0,0,0};
     bool branchRes[]   = {0,0,0,1,1,0,0,0,1,1,0,0};
     bool aluSrcRes[]   = {1,1,1,0,0,1,1,1,0,0,1,0};
-    bool aluOp3Res[]   = {0,0,0,0,0,0,0,0,0,0,0,1};
-    bool aluOp2Res[]   = {0,0,0,0,0,0,1,1,1,1,1,0};
-    bool aluOp1Res[]   = {0,0,0,0,1,1,0,0,0,1,1,0};
-    bool aluOp0Res[]   = {0,0,0,1,0,1,0,1,1,0,0,0};
+    bool aluOp2Res[]   = {0,0,0,0,0,0,0,0,1,0,1,1};
+    bool aluOp1Res[]   = {0,0,1,1,1,0,0,0,0,1,0,1};
+    bool aluOp0Res[]   = {0,1,0,1,1,0,0,0,0,1,1,0};
     
 
 
@@ -50,7 +49,6 @@ void Testbench::print(int i) {
          << (memRead.read() == memReadRes[i]? "vvvvvvv" : "xxxxxxx") << " | "
          << (memWrite.read() == memWriteRes[i]? "vvvvvvvv" : "xxxxxxxx") << " | "
          << (branch.read() == branchRes[i]? "vvvvvv" : "xxxxxx") << " | "
-         << (aluOp3.read() == aluOp3Res[i]? "vvvvvv" : "xxxxxx") << " | "
          << (aluOp2.read() == aluOp2Res[i]? "vvvvvv" : "xxxxxx") << " | "
          << (aluOp1.read() == aluOp1Res[i]? "vvvvvv" : "xxxxxx") << " | "
          << (aluOp0.read() == aluOp0Res[i]? "vvvvvv" : "xxxxxx") << " | " << endl; 

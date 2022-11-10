@@ -1,6 +1,6 @@
 #include <systemc.h>
 
-#include "ControlUnit.h"
+#include "ALUOp2.h"
 #include "Testbench.h"
 
 #include <vector>
@@ -8,11 +8,11 @@ using namespace std;
 
 int sc_main(int argc, char *argv[]) {
 
-    ControlUnit controlUnit("controlUnit");
+    AluOp2 controlUnit("controlUnit");
     Testbench test("testBench");
 
 
-    sc_signal<bool> regWrite, memWrite, memToReg, memRead, branch, aluSrc, aluOp2, aluOp1, aluOp0;
+    sc_signal<bool>  aluOp2;
     sc_signal<bool> i6, i5, i4, i3, i2;
 
     const sc_time period(10, SC_NS);
@@ -37,32 +37,10 @@ int sc_main(int argc, char *argv[]) {
     /////////////////////////////////
     // regWrite, memWrite, memToReg, memRead, branch, aluSrc, aluOp3, aluOp2, aluOp1, aluOp0;
 
-    controlUnit.regWrite(regWrite);
-    test.regWrite(regWrite);
 
-    controlUnit.memWrite(memWrite);
-    test.memWrite(memWrite);
-
-    controlUnit.memToReg(memToReg);
-    test.memToReg(memToReg);
-
-    controlUnit.memRead(memRead);
-    test.memRead(memRead);
-
-    controlUnit.branch(branch);
-    test.branch(branch);
-
-    controlUnit.aluSrc(aluSrc);
-    test.aluSrc(aluSrc);
-
-    controlUnit.aluOp2(aluOp2);
+    controlUnit.s(aluOp2);
     test.aluOp2(aluOp2);
 
-    controlUnit.aluOp1(aluOp1);
-    test.aluOp1(aluOp1);
-
-    controlUnit.aluOp0(aluOp0);
-    test.aluOp0(aluOp0);
     test.clock(clock);
 
     sc_start();
