@@ -1,0 +1,27 @@
+#include "ExMem.h"
+
+
+ExMem::ExMem(sc_module_name nm):sc_module(nm),sumMux("sumMux"),addressDm("addressDm"),
+    writeDataDm("writeDataDm"), zeroAnd("zeroAnd"),brachAnd("brachAnd"),
+        memReadDm("memReadDm"),memWriteDm("memWriteDm"),memToRegP("memToRegP"){
+
+	SC_METHOD(operacion);
+    dont_initialize();
+    sensitive <<sum<<zero<<res<<readData2<<brach<<memRead<<memWrite<<memToReg;
+
+}
+
+void ExMem::operacion(){
+
+
+
+    sumMux.write(sum.read());
+    zeroAnd.write(zero.read());
+	addressDm.write(res.read());
+    writeDataDm.write(readData2.read());
+
+    brachAnd.write(brach.read());
+	memReadDm.write(memRead.read());
+    memWriteDm.write(memWrite.read());
+    memToRegP.write(memToReg.read());
+}
