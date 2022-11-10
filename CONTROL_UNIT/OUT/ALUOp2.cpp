@@ -4,33 +4,34 @@ AluOp2::AluOp2(sc_module_name modName):
     sc_module(modName),
     i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
     s("output"),
-    andGate5("andGate5"), andGate("andGate"), norGate4("norGate4"), notGate("notGate"), orGate("orGate")
+    orGate("orGate"), notGate("notGate"), andGate4("andGate4"), norGate3("norGate3" ), andGate3("andGate3"), xnorGate("xnorGate")
  {
-    norGate4.inA(i6);
-    norGate4.inB(i5);
-    norGate4.inC(i3);
-    norGate4.inD(i2);
-    norGate4.output(channels[0]); // to andGate
+	xnorGate.inA(i3);
+	xnorGate.inB(i2);
+	xnorGate.output(channels[0]); // to andGate4
 
-    andGate.inA(channels[0]);
-    andGate.inB(i4);
-    andGate.output(channels[1]); // to orGate
+	notGate.inA(i4);
+	notGate.output(channels[1]); // to andGate4
 
-    notGate.inA(i4);
-    notGate.output(channels[2]); //to andGate5
+	andGate4.inA(i6);
+	andGate4.inB(i5);
+	andGate4.inC(channels[0]);
+	andGate4.inD(channels[1]);
+	andGate4.output(channels[2]); // to orGAte
 
-    andGate5.inA(channels[2]);
-    andGate5.inB(i6);
-    andGate5.inC(i5);
-    andGate5.inD(i3);
-    andGate5.inE(i2);
-    andGate5.output(channels[3]); // to orGate
+	norGate3.inA(i6);
+	norGate3.inB(i3);
+	norGate3.inC(i2);
+	norGate3.output(channels[3]); // to andGAte3
 
-    orGate.inA(channels[1]);
-    orGate.inB(channels[3]);
-    orGate.output(s);
+	andGate3.inA(i5);
+	andGate3.inB(i4);
+	andGate3.inC(channels[3]);
+	andGate3.output(channels[4]); // to orGate
 
-
+	orGate.inA(channels[2]);
+	orGate.inB(channels[4]);
+	orGate.output(s);
 
 
 }
