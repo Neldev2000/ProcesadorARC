@@ -18,13 +18,14 @@ void Testbench::test() {
  
     cout << "A2 | A1 | A0 || I30 | I14 | I13 | I12 || S |\n";
 
-    for(int i = 0; i < 12; i++){
+    for(int i = 0; i < 15; i++){
         setData(i);
         wait();
-        print();
+        print(i);
     }
 }
-void Testbench::print() {
+void Testbench::print(int i) {
+    bool sRes[] = {0,0,0,0,1,1,1,0,1,0,0,1,0,1,1};
     cout << std::setw(2) << std::setfill('0') << aluOp2.read() << " | "
          << std::setw(2) << std::setfill('0')<< aluOp1.read() << " | "
          << std::setw(2) << std::setfill('0')<< aluOp0.read() << " || "
@@ -32,18 +33,19 @@ void Testbench::print() {
         << std::setw(3) << std::setfill('0')<< this->i14.read() << " | "
         << std::setw(3) << std::setfill('0')<< this->i13.read() << " | "
         << std::setw(3) << std::setfill('0')<< this->i12.read() << " || "
-        << s.read() << " | \n";
+        << s.read() << " - "
+        << (s.read() == sRes[i]? 'v' : 'x' ) << " | \n";
 
 }
 void Testbench::setData(int i) {
-    bool a2[] = {0,0,0,1,1,1,0,0,0,0,0,0};
-    bool a1[] = {0,1,1,0,0,1,0,0,0,0,0,0};
-    bool a0[] = {1,0,1,0,1,1,0,0,0,0,0,0};
+    bool a2[] = {0,0,0,0,0,0,1,0,1,1,1,1,1,1,1};
+    bool a1[] = {0,0,0,0,0,0,0,0,0,1,1,1,1,1,1};
+    bool a0[] = {0,1,1,0,0,0,0,1,1,1,1,1,1,1,1};
 
-    bool i30[] ={1,1,1,1,1,1,0,1,0,0,0,0};
-    bool i14[] ={1,1,1,1,1,1,0,0,0,1,1,0};
-    bool i13[] ={1,1,1,1,1,1,0,0,0,1,1,1};
-    bool i12[] ={1,1,1,1,1,1,0,0,1,0,1,0};
+    bool i30[] ={0,0,0,0,0,0,0,0,0,0,1,0,0,0,0};
+    bool i14[] ={0,0,0,1,0,0,1,0,1,0,0,0,1,1,0};
+    bool i13[] ={0,0,0,1,0,1,1,0,0,0,0,0,1,1,1};
+    bool i12[] ={0,0,1,0,1,0,1,0,1,0,0,1,0,1,0};
 
     aluOp0.write(a0[i]);
     aluOp1.write(a1[i]);
