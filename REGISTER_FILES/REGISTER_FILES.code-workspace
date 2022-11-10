@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../prueba_txt"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iosfwd": "cpp",
+			"string": "cpp",
+			"fstream": "cpp",
+			"iostream": "cpp",
+			"*.tcc": "cpp",
+			"ostream": "cpp"
+		}
+	}
+}
