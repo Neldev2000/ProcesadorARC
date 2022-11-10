@@ -25,7 +25,7 @@ void Testbench::test() {
     }
 }
 void Testbench::print(int i) {
-    bool sRes[] = {0,0,1,1,0,0,0,0,1,0,0,0,1,1,0};
+    bool sRes[] = {0,1,0,1,0,1,1,1,0,0,1,0,1,1,1};
     cout << std::setw(2) << std::setfill('0') << aluOp2.read() << " | "
          << std::setw(2) << std::setfill('0')<< aluOp1.read() << " | "
          << std::setw(2) << std::setfill('0')<< aluOp0.read() << " || "

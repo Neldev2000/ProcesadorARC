@@ -12,7 +12,7 @@ int sc_main(int argc, char *argv[]) {
     Testbench test("testBench");
 
 
-    sc_signal<bool> channelALUOp0, channelALUOp1, channelALUOp2, channelALUOp3, aluF0, aluF1, aluF2;
+    sc_signal<bool> channelALUOp0, channelALUOp1, channelALUOp2, aluF0, aluF1, aluF2;
     sc_signal<bool> i30, i14, i13, i12;
 
     const sc_time period(10, SC_NS);
@@ -27,9 +27,6 @@ int sc_main(int argc, char *argv[]) {
 
     aluControl.aluOp2(channelALUOp2);
     test.aluOp2(channelALUOp2);
-
-    aluControl.aluOp3(channelALUOp3);
-    test.aluOp3(channelALUOp3);
 
     aluControl.i30(i30);
     test.i30(i30);
