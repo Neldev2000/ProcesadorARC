@@ -19,7 +19,7 @@ public:
     void test();
 
 private:
-    void print();
+    void print(int);
     void setData(int i);
 
 };

@@ -1,6 +1,6 @@
 #include <systemc.h>
 
-#include "Output0.h"
+#include "Output1.h"
 #include "Testbench.h"
 //TODO: TEST OUTPUT_0 OUTPUT_1 OUTPUT_2
 int sc_main(int argc, char *argv[]) {

@@ -16,6 +16,7 @@ int sc_main(int argv, char* argc[]) {
   // Necesitaremos cables para conectar los módulos
   sc_signal<sc_bv<5>> ct4, ct2, ct3;
   sc_signal<sc_bv<32>> ct1, cq1, cq2;
+  sc_signal<bool> cq3;
   //sc_signal<bool> fSg;
 
   // Conectando los módulos a los cables
@@ -26,6 +27,7 @@ int sc_main(int argv, char* argc[]) {
   registerfiles.wd(ct1);
   registerfiles.rs1d(cq1);
   registerfiles.rs2d(cq2);
+  registerfiles.regwritein(cq3);
   
   tb.ind1(cq1);
   tb.ind2(cq2);
@@ -35,6 +37,7 @@ int sc_main(int argv, char* argc[]) {
   tb.outs4(ct1);
   // Conectando el reloj al testbench
   tb.clkIn(clock);
+  tb.testuc(cq3);
 
   // Inicializando el simulador
   sc_start();

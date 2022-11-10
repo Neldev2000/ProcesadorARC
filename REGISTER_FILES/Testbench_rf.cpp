@@ -8,40 +8,23 @@ Testbench::Testbench(sc_module_name mn) : sc_module(mn) {
 }
 
 void Testbench::print() {
-  std::cout << sc_time_stamp() << "    "; //tiempo
-
-  std::cout << ind1.read() << "    ";
-  std::cout << ind2.read() << "    ";
-
-
-  std::cout << outs1.read() << "    ";
-  std::cout << outs2.read() << "    ";
-  std::cout << outs3.read() << "    ";
-  std::cout << outs4.read() << "    ";
+  cout << "rs1d" << ind1 << "\n";
+    cout << "rs2d" << ind2 << "\n";
 
 }
 
 void Testbench::test() {
 
-outs1.write("00001");
-outs2.write("00001");
-outs3.write("00001");
-outs4.write("01");
+outs1.write("00000"); // de 0 a 31
+outs2.write("00001"); // de 0 a 31
+outs3.write("00110"); // de 0 a 31
+outs4.write("11100111");
+testuc.write(1);
+
 wait(); // genero entradas espero e imprimo, es paralelizado, si no espero se ejcuta simultaneamente la impresion y asignacion
- std::cout << ind2.read() << "    ";
-/*
-std::cout << "rs1 rs2 rd wd rs1d rs2d";
+wait(); 
 
-  std::cout << rs1.read() << "    ";
-  std::cout << rs2.read() << "    ";
-  std::cout << rd.read() << "    ";
-  std::cout << wd.read() << "    ";
-  std::cout << rs1d.read() << "    ";
-  std::cout << rs2d.read() << "    ";
+print(); //llamo a resto de funciones
 
-*/
-
-   // print(); //llamo a resto de funciones
-
-  sc_stop();
+sc_stop();
 }

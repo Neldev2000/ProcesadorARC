@@ -14,6 +14,7 @@ class Testbench : public sc_module {
       sc_in<sc_bv<32>> ind1, ind2;
 	  sc_out<sc_bv<5>> outs1, outs2, outs3;
       sc_out<sc_bv<32>> outs4;
+       sc_out<bool> testuc;
     
 
   	SC_CTOR(Testbench);
