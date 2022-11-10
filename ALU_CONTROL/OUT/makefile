@@ -4,7 +4,7 @@
 # Versión de SYSTEMC
 	VERSION = systemc-2.3.3
 # Especifique los archivos .cpp
-	SRCS = main.cpp Output0.cpp Output1.cpp Output2.cpp Testbench.cpp ../../GATES/NAND/Nand.cpp ../../GATES/AND/And.cpp ../../GATES/AND/And3.cpp ../../GATES/AND/And4.cpp ../../GATES/NOR/Nor.cpp ../../GATES/NOR/Nor3.cpp ../../GATES/NOR/Nor4.cpp  ../../GATES/NOR/Nor5.cpp ../../GATES/NOT/Not.cpp ../../GATES/OR/Or.cpp ../../GATES/OR/Or3.cpp ../../GATES/OR/Or4.cpp ../../GATES/XNOR/Xnor.cpp ../../GATES/XNOR/Xnor3.cpp ../../GATES/XNOR/Xnor4.cpp   ../../GATES/XOR/Xor.cpp ../../GATES/XOR/Xor3.cpp ../../GATES/XOR/Xor4.cpp
+	SRCS = main.cpp Output0.cpp Output1.cpp Output2.cpp Testbench.cpp ../../GATES/NAND/Nand.cpp ../../GATES/AND/And.cpp ../../GATES/AND/And3.cpp ../../GATES/AND/And4.cpp ../../GATES/AND/And5.cpp ../../GATES/NOR/Nor.cpp ../../GATES/NOR/Nor3.cpp ../../GATES/NOR/Nor4.cpp  ../../GATES/NOR/Nor5.cpp ../../GATES/NOT/Not.cpp ../../GATES/OR/Or.cpp ../../GATES/OR/Or3.cpp ../../GATES/OR/Or4.cpp ../../GATES/XNOR/Xnor.cpp ../../GATES/XNOR/Xnor3.cpp ../../GATES/XNOR/Xnor4.cpp   ../../GATES/XOR/Xor.cpp ../../GATES/XOR/Xor3.cpp ../../GATES/XOR/Xor4.cpp
 # Nombre del ejecutable
 	TARGET = test.out
 #

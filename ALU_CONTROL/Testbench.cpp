@@ -54,6 +54,7 @@ void Testbench::setData(int i) {
     aluOp0.write(a0[i]);
     aluOp1.write(a1[i]);
     aluOp2.write(a2[i]);
+
     this->i30.write(i30[i]);
     this->i14.write(i14[i]);
     this->i13.write(i13[i]);
