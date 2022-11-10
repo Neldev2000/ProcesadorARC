@@ -3,6 +3,7 @@
 
 #include <systemc.h>
 #include <vector>
+#include<string>
 #include <stack>
 #include <iostream>
 #include <fstream>
@@ -19,7 +20,12 @@ class register_files: public sc_module {
 
   private:
     void operation();
+    void leer();
+    void escribir();
+    int omega, alpha;
     std::vector <sc_bv<32>> register_list;
+    string linea;
+    fstream myfile;
 };
 
 #endif
