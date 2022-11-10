@@ -24,7 +24,7 @@ void Testbench::test() {
     }
 }
 void Testbench::print(int i) {
-    bool aluOp2Res[]   = {0,0,1,1,1,0,0,0,0,1,0,1};
+    bool aluOp2Res[]   = {0,1,0,1,1,0,0,0,0,1,1,0};
 
 
     cout << std::setw(2) << std::setfill('0') << i6.read() << " | "

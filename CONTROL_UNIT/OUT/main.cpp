@@ -1,6 +1,6 @@
 #include <systemc.h>
 
-#include "ALUOp1.h"
+#include "ALUOp0.h"
 #include "Testbench.h"
 
 #include <vector>
@@ -8,7 +8,7 @@ using namespace std;
 
 int sc_main(int argc, char *argv[]) {
 
-    AluOp1 controlUnit("controlUnit");
+    AluOp0 controlUnit("controlUnit");
     Testbench test("testBench");
 
 
