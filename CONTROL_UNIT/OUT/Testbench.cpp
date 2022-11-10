@@ -3,7 +3,7 @@
 Testbench::Testbench(sc_module_name modName):
     sc_module(modName),
     i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
-    aluOp2("aluOp2")
+    s("output")
     ,clock("clock")
 {
 
@@ -15,7 +15,7 @@ Testbench::Testbench(sc_module_name modName):
 
 void Testbench::test() {
  
-    cout << "i6 | i5 | i4 | i3 | i2 ||  ALUOp2 | \n";
+    cout << "i6 | i5 | i4 | i3 | i2 ||  S | \n";
 
     for(int i = 0; i < 12; i++){
         setData(i);
@@ -24,7 +24,7 @@ void Testbench::test() {
     }
 }
 void Testbench::print(int i) {
-    bool aluOp2Res[]   = {0,0,0,0,0,0,0,0,1,0,1,1};
+    bool aluOp2Res[]   = {0,0,1,1,1,0,0,0,0,1,0,1};
 
 
     cout << std::setw(2) << std::setfill('0') << i6.read() << " | "
@@ -32,7 +32,7 @@ void Testbench::print(int i) {
          << std::setw(2) << std::setfill('0')<< i4.read() << " | "
          << std::setw(2) << std::setfill('0')<< i3.read() << " | "
          << std::setw(2) << std::setfill('0')<< i2.read() << " || "
-         << (aluOp2.read() == aluOp2Res[i]? "vvvvvv" : "xxxxxx") << " | "<< endl; 
+         << (s.read() == aluOp2Res[i]? "vvvvvv" : "xxxxxx") << " | "<< endl; 
 }
 void Testbench::setData(int i) {
 

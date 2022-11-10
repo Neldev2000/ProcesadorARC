@@ -1,6 +1,6 @@
 #include <systemc.h>
 
-#include "ALUOp2.h"
+#include "ALUOp1.h"
 #include "Testbench.h"
 
 #include <vector>
@@ -8,11 +8,11 @@ using namespace std;
 
 int sc_main(int argc, char *argv[]) {
 
-    AluOp2 controlUnit("controlUnit");
+    AluOp1 controlUnit("controlUnit");
     Testbench test("testBench");
 
 
-    sc_signal<bool>  aluOp2;
+    sc_signal<bool>  s;
     sc_signal<bool> i6, i5, i4, i3, i2;
 
     const sc_time period(10, SC_NS);
@@ -38,8 +38,8 @@ int sc_main(int argc, char *argv[]) {
     // regWrite, memWrite, memToReg, memRead, branch, aluSrc, aluOp3, aluOp2, aluOp1, aluOp0;
 
 
-    controlUnit.s(aluOp2);
-    test.aluOp2(aluOp2);
+    controlUnit.s(s);
+    test.s(s);
 
     test.clock(clock);
 

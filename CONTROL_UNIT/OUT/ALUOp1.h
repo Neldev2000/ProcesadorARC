@@ -4,10 +4,10 @@
 
 #include <systemc.h>
 
-#include "And4.h"
-#include "And.h"
-#include "Nor4.h"
-#include "Not.h"
+#include "Xnor.h"
+#include "Nor.h"
+#include "And3.h"
+#include "Nor3.h"
 #include "Or.h"
 
 class AluOp1 : sc_module
@@ -19,13 +19,13 @@ public:
     sc_out<bool> s;
 
 private:
-    AndGate4 andGate4;
-    AndGate andGate;
-    NorGate4 norGate4;
-    NotGate notGate;
+    XnorGate xnorGate;
+    NorGate norGate;
+    sc_vector<AndGate3> andGates3;
+    NorGate3 norGate3;
     OrGate orGate;
 
-    sc_signal<bool> channels[4];
+    sc_signal<bool> channels[5];
 
 };
 

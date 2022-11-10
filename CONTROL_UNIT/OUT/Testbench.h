@@ -8,7 +8,7 @@ using namespace std;
 class Testbench: public sc_module {
 public:
     SC_CTOR(Testbench);
-    sc_in<bool> aluOp2;
+    sc_in<bool> s;
     sc_out<bool> i6, i5, i4, i3, i2;
 
 
