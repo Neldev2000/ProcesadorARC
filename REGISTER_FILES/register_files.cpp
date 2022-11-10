@@ -40,9 +40,13 @@ void register_files::operation() { //  variableout.write(dato in);
     }
     void register_files::escribir(){
       rs1d.write(register_list[rs1.read().to_int()]);
-      rs2d.write(register_list[rs2.read().to_int()]);
-      register_list[rd.read().to_int()]=wd;
 
+      rs2d.write(register_list[rs2.read().to_int()]);
+      
+      if (regwritein.read() == 1){
+       register_list[rd.read().to_int()]=wd;
+      }
+      
       myfile.open("write_list.txt"); 
 
    for (alpha = 0; alpha < 32; alpha++){

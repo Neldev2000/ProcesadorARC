@@ -14,6 +14,7 @@ class register_files: public sc_module {
     sc_in<sc_bv<5>> rs1, rs2, rd;
     sc_in<sc_bv<32>> wd;
     sc_out<sc_bv<32>> rs1d,rs2d;
+    sc_in<bool> regwritein;
 
     SC_CTOR(register_files);
 

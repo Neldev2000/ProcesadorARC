@@ -17,8 +17,9 @@ void Testbench::test() {
 
 outs1.write("00000"); // de 0 a 31
 outs2.write("00001"); // de 0 a 31
-outs3.write("00011"); // de 0 a 31
-outs4.write("10000000");
+outs3.write("00110"); // de 0 a 31
+outs4.write("11100111");
+testuc.write(1);
 
 wait(); // genero entradas espero e imprimo, es paralelizado, si no espero se ejcuta simultaneamente la impresion y asignacion
 wait(); 
