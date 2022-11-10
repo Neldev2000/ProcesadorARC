@@ -5,16 +5,54 @@ register_files::register_files(sc_module_name nm) : sc_module(nm), rs1("rs1"), r
   SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion
   sensitive << rs1 << rs2 << rd << wd; // estas son las que van a cambiar
   dont_initialize();
-  register_list[1] = "1001";
+   
 }
 
 void register_files::operation() { //  variableout.write(dato in);
 
-  cout << "rs1: " << register_list[1]  << endl;
-  rs2d.write(register_list[1] );
-  /*rs1d.write(register_list[rs1.read().to_int()]);
-  rs2d.write(register_list[rs2.read().to_int()]);
-  register_list[rd.read().to_int()]=wd.read();*/
+  leer();
+  escribir();
+
 }
 
+    void register_files::leer(){
 
+   myfile.open("write_list.txt"); 
+   int a;
+   for(a = 0; a<32; a++) //getline(myfile,linea)
+ { 
+  getline(myfile,linea,'\n');
+   //register_list.push_back(linea.c_str());
+   register_list[a]= linea.c_str();
+
+ }
+    myfile.close();
+ 
+  myfile.open ("write_list.txt"); 
+
+   for (omega = 0; omega < 32; omega++)
+   {
+    myfile << register_list[omega] <<"\n";
+   }
+
+  myfile.close();
+
+    }
+    void register_files::escribir(){
+      rs1d.write(register_list[rs1.read().to_int()]);
+      rs2d.write(register_list[rs2.read().to_int()]);
+      register_list[rd.read().to_int()]=wd;
+
+      myfile.open("write_list.txt"); 
+
+   for (alpha = 0; alpha < 32; alpha++){
+
+    myfile << register_list[alpha] <<"\n";
+    
+   }
+
+  myfile.close();
+
+    }
+
+ 
