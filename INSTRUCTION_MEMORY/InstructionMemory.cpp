@@ -51,7 +51,7 @@ int stringNumberToInt(const string& str) {
 InstructionMemory::InstructionMemory(sc_module_name modName):
     sc_module(modName),
     programCounterIndex("ProgramCounterIndex"),
-    controlUnit("ControlUnit"),
+    i30("i30"), i14("i14"), i13("i13"), i12("i12"), i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
     rs1("rs1"),
     rs2("rs2"),
     rd("rd"),
@@ -73,13 +73,23 @@ void InstructionMemory::process() {
 
     sc_bv<32> bitList;
     this->encodeInstruction(functType, wordList, bitList);
+    std::cout << bitList << endl;
+    i30(bitList.range(30,30).to_int());
+    i14(bitList.range(14,14).to_int());
+    i13(bitList.range(13,13).to_int());
+    i12(bitList.range(12,12).to_int());
 
-    controlUnit.write( bitList.range(6,0) );
+    i6(bitList.range(6,6).to_int());
+    i5(bitList.range(5,5).to_int());
+    i4(bitList.range(4,4).to_int());
+    i3(bitList.range(3,3).to_int());
+    i2(bitList.range(2,2).to_int());
+
     rs1.write(bitList.range(19,15));
     rs2.write(bitList.range(24,20));
     rd.write(bitList.range(11,7));
 
-    immGen.write( bitList );
+    immGen.write( bitList.range(31,20) );
 
 }
 ////////////////////////////////////////////////

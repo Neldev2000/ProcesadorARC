@@ -1,2 +1,1 @@
-jalr x0,x0
-
+beq x1,x1,20

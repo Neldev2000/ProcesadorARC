@@ -34,9 +34,9 @@ public:
     // 11-07 Rd (5 bits)
     // 31-00 Imm Gen (32 bits)
 
-    sc_out<sc_bv<7>> controlUnit;
+    sc_out<bool> i30, i14, i13, i12, i6, i5, i4, i3, i2;
     sc_out<sc_bv<5>> rs1, rs2, rd;
-    sc_out<sc_bv<32>> immGen;
+    sc_out<sc_bv<12>> immGen;
 
 
 private:

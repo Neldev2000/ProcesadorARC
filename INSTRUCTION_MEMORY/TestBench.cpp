@@ -22,7 +22,7 @@ void TestBench::test() {
 
 
     wait();
-    printData();
+   // printData();
     
     
 }
