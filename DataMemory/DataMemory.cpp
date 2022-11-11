@@ -1,19 +1,15 @@
 #include "DataMemory.h"
 
 
-DataMemory::DataMemory(sc_module_name nm):sc_module(nm), readData("readData"), data(3){
+DataMemory::DataMemory(sc_module_name nm):sc_module(nm), readData("readData"), data(65536){
 	SC_METHOD(operacion);
     dont_initialize();
     sensitive << address << writeData << memWrite << memRead;
-   // data[0]= "101011";
-    //data[1] = "010101";
 }
 
 void DataMemory::operacion(){
     leer();
-     std::cout <<"Data: " << data[0]<< "\n";
-  std::cout <<"Data: " << data[01]<< "\n";
-   std::cout <<"Data: " << data[2]<< "\n";
+
     if(memRead == true){
         readData.write( data[address.read().to_int()]); 
     }
@@ -27,7 +23,7 @@ void DataMemory::operacion(){
 }
 void DataMemory::escribir(){
     archivo.open ("datamemory.txt");
-    for(int i = 0; i < 3;i++){
+    for(int i = 0; i < 65536;i++){
             archivo << data[i].to_string()<< endl; 
     } 
     archivo.close();    
@@ -36,7 +32,7 @@ void DataMemory::leer(){
     archivo.open ("datamemory.txt");
     std::string n;
 
-    for(int i = 0; i < 3;i++){
+    for(int i = 0; i < 65536;i++){
         std::getline(archivo, n,'\n');
         data[i] = n.c_str();
     }
