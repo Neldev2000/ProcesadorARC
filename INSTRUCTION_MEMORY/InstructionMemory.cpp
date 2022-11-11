@@ -74,16 +74,16 @@ void InstructionMemory::process() {
     sc_bv<32> bitList;
     this->encodeInstruction(functType, wordList, bitList);
     std::cout << bitList << endl;
-    i30(bitList.range(30,30).to_int());
-    i14(bitList.range(14,14).to_int());
-    i13(bitList.range(13,13).to_int());
-    i12(bitList.range(12,12).to_int());
+    i30.write(bitList.range(30,30).to_int());
+    i14.write(bitList.range(14,14).to_int());
+    i13.write(bitList.range(13,13).to_int());
+    i12.write(bitList.range(12,12).to_int());
 
-    i6(bitList.range(6,6).to_int());
-    i5(bitList.range(5,5).to_int());
-    i4(bitList.range(4,4).to_int());
-    i3(bitList.range(3,3).to_int());
-    i2(bitList.range(2,2).to_int());
+    i6.write(bitList.range(6,6).to_int());
+    i5.write(bitList.range(5,5).to_int());
+    i4.write(bitList.range(4,4).to_int());
+    i3.write(bitList.range(3,3).to_int());
+    i2.write(bitList.range(2,2).to_int());
 
     rs1.write(bitList.range(19,15));
     rs2.write(bitList.range(24,20));

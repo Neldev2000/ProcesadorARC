@@ -20,7 +20,6 @@
         
 
 */
-int stringNumberToInt(const std::string&);
 
 class InstructionMemory : public sc_module
 {
@@ -53,5 +52,6 @@ private:
     void encodeInstruction(const std::string&, const std::vector<std::string>&, sc_bv<32>& bitList);
 };
 
+int stringNumberToInt(const std::string&);
 
 #endif //INSTRUCTION_MEMORY_H
