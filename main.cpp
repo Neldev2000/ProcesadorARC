@@ -1,8 +1,9 @@
 #include "utils.h"
-
-int sc_main(int argc, char const *argv[])
+//#include "instructionMemory.h"
+int sc_main(int argc, char *argv[])
 {
     // IF-ID
+    
     pipeline_if_id pipelineIfId("pipelineIfId");
     InstructionMemory instructionMemory("instructionMemory");
 
@@ -64,10 +65,10 @@ int sc_main(int argc, char const *argv[])
     program_counter programCounter("programCounter");
     Adder4 adder4("Adder4");
 
-    sc_signal<sc_bv<32>> channelPCtoInstructionMemory, channelPCtoAdder4, channelAdder4toMux;
+    sc_signal<sc_bv<32>> channelPCtoinstructionMemory, channelPCtoAdder4, channelAdder4toMux;
     
-    programCounter.outInstruction(channelPCtoInstructionMemory);
-    instructionMemory.programCounterIndex(channelPCtoInstructionMemory);
+    programCounter.outInstruction(channelPCtoinstructionMemory);
+    instructionMemory.programCounterIndex(channelPCtoinstructionMemory);
 
     programCounter.outAdd4(channelPCtoAdder4);
     adder4.pcIn(channelPCtoAdder4);
@@ -79,7 +80,6 @@ int sc_main(int argc, char const *argv[])
     sc_start();
     return 0;
 }
-
 
 
 
