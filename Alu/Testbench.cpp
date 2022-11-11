@@ -8,8 +8,8 @@ Testbench::Testbench(sc_module_name mn) : sc_module(mn) {
 }
 //@@@@@@ Metodo que Imprime las Salidas y Entradas
 void Testbench::print() {
-    std::cout << "RESUTADO: " << resIn.read()<<"   ENTERO: " <<resIn.read().to_int()<< "  ";
-    std::cout << "   ZERO: " << zeroIn.read();
+    std::cout << "\nRESUTADO: " << resIn.read()<<"\nENTERO: " <<resIn.read().to_int()<< "  ";
+    std::cout << "\nZERO: " << zeroIn.read();
 }
 
 //@@@@@@ Metodo que hace las pruebas

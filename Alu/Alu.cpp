@@ -16,7 +16,6 @@ void Alu::operacion(){
     	suma(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\n-----" << test.to_int() <<" zero: "<<val << "jnsaxlxlas\n";
   	} 
   
   	if(aluOp1.read() == false && aluOp2.read() == false && aluOp3.read() == true){  
@@ -25,7 +24,6 @@ void Alu::operacion(){
     	resta(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\nestoty en el 2 if\n" << test.to_int() <<"zero: "<<val << "\n";
   	} 
 	
 	if(aluOp1.read() == false && aluOp2.read() == true && aluOp3.read() == false){  
@@ -34,7 +32,6 @@ void Alu::operacion(){
     	bne(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\nestoty en el 3 if\n" << test <<"zero"<<val << "jnsaxlxlas\n";
   	}
 
 	if(aluOp1.read() == false && aluOp2.read() == true && aluOp3.read() == true){  
@@ -43,7 +40,6 @@ void Alu::operacion(){
     	orBit(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\nestoty en el 4 if\n" << test <<"zero"<<val << "jnsaxlxlas\n";
   	}
 
 	if(aluOp1.read() == true && aluOp2.read() == false && aluOp3.read() == false){  
@@ -52,7 +48,6 @@ void Alu::operacion(){
     	desplazarIzq(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\nestoty en el 5 if\n" << test <<"zero"<<val<< "jnsaxlxlas\n";
   	}
 
 	if(aluOp1.read() == true && aluOp2.read() == false && aluOp3.read() == true){  
@@ -61,7 +56,6 @@ void Alu::operacion(){
     	menorQue(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\nestoty en el 3 if\n" << test <<"zero"<<val << "jnsaxlxlas\n";
   	}
 
 	if(aluOp1.read() == true && aluOp2.read() == true && aluOp3.read() == false){  
@@ -70,7 +64,6 @@ void Alu::operacion(){
     	asignar(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\nestoty en el 3 if\n" << test <<"zero"<<val<< "jnsaxlxlas\n";
   	}
 
 	if(aluOp1.read() == true && aluOp2.read() == true && aluOp3.read() == true){  
@@ -79,7 +72,6 @@ void Alu::operacion(){
     	andBit(test,val);
     	res.write(test);
 		zero.write(val);
-    	std::cout << "\nestoty en el 3 if\n" << test <<"zero"<<val<< "jnsaxlxlas\n";
   	}
 }
 
@@ -130,7 +122,7 @@ void Alu::andBit(sc_bv<32>& test, bool& val){
 }
 
 
-//@@@ Metodo Si NO Son Iguales(Instrucciones: bne) arreglarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+//@@@ Metodo Si NO Son Iguales(Instrucciones: bne)
 
 void Alu::bne(sc_bv<32>& test, bool& val){
 	if ( rs1.read() !=  rs2.read()){
