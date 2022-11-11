@@ -2,7 +2,9 @@
 //0 - if/id
 
 
-
+int main() {
+    return 0;
+}
 
 
 
