@@ -1,15 +1,15 @@
-#include "immgen.h"
+#include "IMMGEN.h"
 #include <iostream>
 using namespace std;
 
-immgen::immgen(sc_module_name nm) : sc_module(nm), inex("inex"), outex("outex") {//inicializar puertos
+IMMGEN::IMMGEN(sc_module_name nm) : sc_module(nm), inex("inex"), outex("outex") {//inicializar puertos
 
   SC_METHOD(process); // cuando las variables cambien ejecuta esa funcion
   sensitive << inex; // estas son las que van a cambiar
   dont_initialize();
 }
 
-void immgen::process() {
+void IMMGEN::process() {
 
 sc_bv<1> s = inex.read().range(11,11);
 cout<< "\n" << "s= "<< s.to_string()<< "\n"; //string convierte en cadena ver valor real

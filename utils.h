@@ -4,11 +4,12 @@
 #include <systemc.h>
 #include "Alu.h"
 #include "InstructionMemory.h"
+#include "IMMGEN.h"
 #include "AluControl.h"
 #include "ControlUnit.h"
 #include "DataMemory.h"
 #include "ExMem.h"
-#include "immgen.h"
+
 #include "MemWb.h"
 #include "pipeline_id_ex.h"
 #include "pipeline_if_id.h"
