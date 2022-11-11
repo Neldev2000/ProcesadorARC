@@ -25,6 +25,8 @@ void pipeline_id_ex::operation() { //  variableout.write(dato in);
     alu3.write(aluop3.read());
     mwp.write(memwrite.read());
     as.write(alusrc.read());
+    igmux.write(immgen.read());
+    rd2mux.write(readdata2.read());  
 
 
 }
