@@ -15,5 +15,6 @@
 #include "pipeline_if_id.h"
 #include "program_counter.h"
 #include "register_files.h"
+#include "Adder4.h"
 
 #endif //UTILS_H
