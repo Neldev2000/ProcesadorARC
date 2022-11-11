@@ -184,6 +184,147 @@ int sc_main(int argc, char *argv[])
    pipeline_id_ex.immgen(coutgen);
   // Conectando el reloj al testbench
 
+  // EX - MEM
+  
+  //@@@@@@@@@Reloj
+    sc_time period(10, SC_NS);
+    sc_time delay(10, SC_NS);
+    sc_clock clock("clock", period, 0.5, delay, true);
+
+    DataMemory datamemory("datamemory");
+    MemWb memwb("memwb");
+	ExMem exmem("exmen");
+	AndGate and("and");
+	Alu alu("alu");
+	AluControl alucontrol("alucontrol");
+	pipeline_id_ex pipeline_id_ex("pipeline_id_ex");
+
+
+    sc_signal<sc_bv<32>> readDataSg,mtrPSg,rSg,aSg, mdSg,resSg,rd1Sg,rd2Sg;
+	sc_signal<bool> mwDmSg,mrDmSg,and1Sg, and2Sg,zeroSg,alu1Sg,alu2Sg,alu3Sg,bpSg,igSg,mtrpSg,mwpSg,i1Sg,i2Sg,i3Sg,i4Sg,op1Sg,op2Sg,op3Sg;
+
+    //@@@@@@@@@Conexion con los Canales correspondientes
+
+
+	//@@@@Conexion de Data Memory a Pipeline Mem/Wb
+	datamemory.readData(readDataSg);
+	memwb.addressOut(readDataSg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal MemToReg a Pipeline Mem/Wb
+	exmem.memToRegP(mtrPSg);
+	memwb.memToReg(mtrPSg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal Res(Alu) a Pipeline Mem/Wb
+	exmem.rp(rSg);
+	memwb.res(rSg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal MemWrite a Data Memory
+	exmem.memWriteDm(mwDmSg);
+	datamemory.memWrite(mwDmSg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal Res(Alu) a Data Memory
+	exmem.addressDm(aSg);
+	datamemory.address(aSg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal WriteData a Data Memory
+	exmem.writeDataDm(wdSg);
+	datamemory.writeData(wdSg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal MemRead a Data Memory
+	exmem.memReadDm(mrDmSg);
+	datamemory.memRead(mrDmSg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal Brach a And Gate
+	exmem.brachAnd(and1Sg);
+	and.inA(and1Sg);
+
+	//@@@@Conexion de Pipeline Ex/Mem Señal Zero(Alu) a And Gate
+	exmem.zeroAnd(and2Sg);
+	and.inB(and2Sg);
+
+	//@@@@Conexion de ALU Señal Zero(Alu) a Pipeline Ex/Mem
+	alu.zero(zeroSg);
+	exmem.zero(zeroSg);
+
+	//@@@@Conexion de ALU Señal Res(Resultado) a Pipeline Ex/Mem
+	alu.res(resSg);
+	exmem.res(resSg);
+
+	//@@@@Conexion de ALU Control Señal ALUop1 a ALU
+	alucontrol.aluF0(alu1Sg);
+	alu.aluOp1(alu1Sg);
+
+	//@@@@Conexion de ALU Control Señal ALUop2 a ALU
+	alucontrol.aluF1(alu2Sg);
+	alu.aluOp2(alu2Sg);
+
+	//@@@@Conexion de ALU Control Señal ALUop3 a ALU
+	alucontrol.aluF2(alu3Sg);
+	alu.aluOp3(alu3Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal rs1 a ALU
+	pipeline_id_ex.rd1(rd1Sg);
+	alu.rs1(rd1Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal branch a Ex/Mem
+	pipeline_id_ex.bp(bpSg);
+	exmem.branch(bpSg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Imm Gen a Ex/Mem
+	pipeline_id_ex.ig(igSg);
+	exmem.sum(igSg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Mem To Reg a Ex/Mem
+	pipeline_id_ex.mtrp(mtrpSg);
+	exmem.memToReg(mtrpSg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal MemWrite a Ex/Mem
+	pipeline_id_ex.mwp(mwpSg);
+	exmem.memWrite(mwpSg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Read Data 2 a Ex/Mem
+	pipeline_id_ex.rd2(rd2Sg);
+	exmem.readData2(rd2Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal MemRead a Ex/Mem
+	pipeline_id_ex.mrp(mrpSg);
+	exmem.memRead(mrpSg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Alu inst 1 a ALU Control
+	pipeline_id_ex.inst1alu(i1Sg);
+	alucontrol.i12(i1Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Alu inst 2 a ALU Control
+	pipeline_id_ex.inst2alu(i2Sg);
+	alucontrol.i13(i2Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Alu inst 3 a ALU Control
+	pipeline_id_ex.inst3alu(i3Sg);
+	alucontrol.i14(i3Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Alu inst 4 a ALU Control
+	pipeline_id_ex.inst4alu(i4Sg);
+	alucontrol.i30(i4Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Alu Op 1 a ALU Control
+	pipeline_id_ex.alu1(op1Sg);
+	alucontrol.aluOp0(op1Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Alu Op 2 a ALU Control
+	pipeline_id_ex.alu2(op2Sg);
+	alucontrol.aluOp1(op2Sg);
+
+	//@@@@Conexion de Pipeline Id/Ex Señal Alu Op 3 a ALU Control
+	pipeline_id_ex.alu3(op3Sg);
+	alucontrol.aluOp2(op3Sg);
+
+    testbench.clkIn(clock);
+
+    sc_start();
+
+  
+  // EX - MEM
+  
     sc_start();
     return 0;
 }
