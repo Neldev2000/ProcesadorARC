@@ -10,7 +10,7 @@ int sc_main(int argv, char* argc[]) {
     ExMem exmem ("exmem");
     Testbench testbench("testbench");
 
-    sc_signal<sc_bv<32>> rdSg,resSg,sSg,sMuxSg,aSg,wdSg;
+    sc_signal<sc_bv<32>> rdSg,resSg,sSg,sMuxSg,aSg,wdSg,addressSg,rSg;
     sc_signal<bool>  zSg,zAndSg,bAndSg,mrDmSg,mwDmSg,mtrDmSg,mtrPSg,mtrSg,mwSg,mrSg,bSg;
 
     //@@@@@@@@@Conexion con los Canales correspondientes
@@ -20,11 +20,14 @@ int sc_main(int argv, char* argc[]) {
 	exmem.zero(zSg);
 	exmem.zeroAnd(zAndSg);
 
-	exmem.res(resSg);
+	exmem.address(addressSg);
 	exmem.addressDm(aSg);
 
 	exmem.readData2(rdSg);
 	exmem.writeDataDm(wdSg);
+
+	exmem.res(resSg);
+	exmem.rp(rSg);
 
 	exmem.brach(bSg);
 	exmem.brachAnd(bAndSg);
@@ -45,11 +48,14 @@ int sc_main(int argv, char* argc[]) {
 	testbench.zOut(zSg);
 	testbench.zAndIn(zAndSg);
 
-	testbench.resOut(resSg);
+	testbench.addressOut(addressSg);
 	testbench.aIn(aSg);
 
 	testbench.rd2Out(rdSg);
 	testbench.wdIn(wdSg);
+
+	testbench.resOut(resSg);
+	testbench.rpIn(rSg);
 
 	testbench.bOut(bSg);
 	testbench.bAndIn(bAndSg);

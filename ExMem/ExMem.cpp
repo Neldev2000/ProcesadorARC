@@ -14,11 +14,11 @@ ExMem::ExMem(sc_module_name nm):sc_module(nm),sumMux("sumMux"),addressDm("addres
 void ExMem::operacion(){
 
 
-
     sumMux.write(sum.read());
     zeroAnd.write(zero.read());
-	addressDm.write(res.read());
+	addressDm.write(address.read());
     writeDataDm.write(readData2.read());
+    rp.write(res.read());
 
     brachAnd.write(brach.read());
 	memReadDm.write(memRead.read());

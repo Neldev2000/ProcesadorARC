@@ -12,7 +12,7 @@ void Testbench::print() {
 
     std::cout << "REGISTROS: \n";
     std::cout << "Sum: " << sMuxIn.read()<<"\nZero: " << zAndIn.read()<<
-        "\nRes: " << aIn.read()<<"\nRead Data: " << wdIn.read();
+        "\nAddress: " << aIn.read()<<"\nRead Data: " << wdIn.read()<<"\nRes: "<< rpIn.read();
 
     std::cout << "\nSEÑALES DE CONTROL: \n";
     std::cout << "Brach: " << bAndIn.read()<<"\nMemRead: " << mrDmIn.read()<<
@@ -23,8 +23,9 @@ void Testbench::print() {
 void Testbench::test() {
 	sumOut.write("11");
     zOut.write(true);
-    resOut.write("1010");
+    addressOut.write("100");
     rd2Out.write("10111");
+    resOut.write("1010");
     bOut.write(false);
     mrOut.write(true);
     mwOut.write(false);

@@ -7,10 +7,10 @@ class Testbench : public sc_module {
 	public:
     	sc_in<bool> clkIn;
 
-		sc_out<sc_bv<32>> sumOut, resOut,rd2Out;
+		sc_out<sc_bv<32>> sumOut,addressOut, resOut,rd2Out;
 		sc_out<bool> zOut,bOut, mrOut, mwOut, mtrOut;
 		
-    	sc_in<sc_bv<32>> sMuxIn, aIn, wdIn;
+    	sc_in<sc_bv<32>> sMuxIn, aIn,rpIn, wdIn;
 		sc_in<bool> zAndIn,bAndIn, mrDmIn, mwDmIn, mtrPIn;
 
     	SC_CTOR(Testbench);
