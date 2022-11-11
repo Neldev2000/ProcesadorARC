@@ -16,8 +16,10 @@ cout<< "\n" << "s= "<< s.to_string()<< "\n"; //string convierte en cadena ver va
 if (s.to_string()=="1"){
     sc_bv<20> sap;
     outex.write(("11111111111111111111"+inex.read().to_string()).c_str()); // convierte string a cadena de caracteres
+    outbranch1.write(("11111111111111111111"+inex.read().to_string()).c_str());
 }else{
     outex.write(inex.read());
+     outbranch1.write(inex.read());
 }
 
 
