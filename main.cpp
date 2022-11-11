@@ -162,176 +162,92 @@
   pipeline_id_ex pipeline_id_ex("pipe_idex");
 
 
-
   // Necesitaremos cables para conectar los módulos
-  sc_signal<bool> i1sg, i2sg, i3sg, i4sg, bsg, mrsg, mtrsg, a3, a2, a1, mwsg, asrcsg;
-  sc_signal<sc_bv<32>> readdata1sg, readdata2sg, immgensg;
-
-  sc_signal<bool> inst1sg, inst2sg, inst3sg, inst4sg, bps, mrpsg, mtrpsg, alu1sg, alu2sg, alu3sg, mwpsg, assg;
-  sc_signal<sc_bv<32>> rd1sg, rd2sg, igsg;
+  sc_signal<bool> it1, it2, it3, it4, cib2, cib3, cib4, cib5, cib6, cdregister, cmw, cmtr, cmr, cb, cas, cao2, cao1, cao0;
+  sc_signal<sc_bv<5>> crs1, crs2, crd ;
+  sc_signal<sc_bv<12>> cgenin;
+  sc_signal<sc_bv<32>> crd1, crd2, coutgen;
 
   //sc_signal<bool> fSg;
 
-  // Conectando los módulos a los cables
+  // Conectando los módulos a los cables modulo.
 
-  pipeline_id_ex.inst1(i1sg);
-  tb.inst1out(i1sg);
+ //pipeline_if_id pipeline_if_id.puerto(cable);
 
-  pipeline_id_ex.inst2(i2sg);
-  tb.inst2out(i2sg);
+   pipeline_if_id.i12out(it1);
+   pipeline_if_id.i13out(it2);
+   pipeline_if_id.i14out(it3);
+   pipeline_if_id.i30out(it4);
 
-  pipeline_id_ex.inst3(i3sg);
-  tb.inst3out(i3sg);
+   pipeline_if_id.i2out(cib2);
+   pipeline_if_id.i3out(cib3);
+   pipeline_if_id.i4out(cib4);
+   pipeline_if_id.i5out(cib5); 
+   pipeline_if_id.i6out(cib6);  
 
-  pipeline_id_ex.inst4(i4sg);
-  tb.inst4out(i4sg);
+   pipeline_if_id.imoutrs1(crs1);
+   pipeline_if_id.imoutrs2(crs2);
+   pipeline_if_id.imoutrd(crd);
 
-  pipeline_id_ex.readdata1(readdata1sg);
-  tb.rd1out(readdata1sg);
+   pipeline_if_id.imoutgen(cgenin); 
 
-  pipeline_id_ex.readdata2(readdata2sg);
-  tb.rd2out(readdata2sg);
 
-  pipeline_id_ex.immgen(immgensg);
-  tb.igout(immgensg);
+   // controlUnit.puerto(cable);
 
-  pipeline_id_ex.branch(bsg);
-  tb.bout(bsg);
+   controlUnit.i2(cib2);
+   controlUnit.i3(cib3);
+   controlUnit.i4(cib4);
+   controlUnit.i5(cib5);
+   controlUnit.i6(cib6);
 
-  pipeline_id_ex.memread(mrsg);
-  tb.mrout(mrsg);
+   controlUnit.regwrite(cdregister);
+   controlUnit.memwrite(cmw);
+   controlUnit.memtoreg(cmtr);
+   controlUnit.memread(cmr);
+   controlUnit.branch(cb);
+   controlUnit.alusrc(cas);
+   controlUnit.aluop2(cao2);
+   controlUnit.aluop1(cao1);
+   controlUnit.aluop0(cao0);
 
-  pipeline_id_ex.memtoreg(mtrsg);
-  tb.mtrout(mtrsg);
+   //registerfiles.puerto(cable);
 
-  pipeline_id_ex.aluop1(a1);
-  tb.a1out(a1);
+   registerfiles.rs1(crs1);
+   registerfiles.rs2(crs2);
+   registerfiles.rd(crd);
 
-  pipeline_id_ex.aluop2(a2);
-  tb.a2out(a2);
+   registerfiles.rs1d(crd1);
+   registerfiles.rs2d(crd2);
+   //definir entrada wd
 
-  pipeline_id_ex.aluop3(a3);
-  tb.a3out(a3);
+   registerfiles.regwritein(cdregister);
 
-  pipeline_id_ex.alusrc(asrcsg);
-  tb.asrcout(asrcsg);
+  //immgen.puerto(cable);
 
-  pipeline_id_ex.memwrite(mwsg);
-  tb.mwout(mwsg);
-//////////////////////////////////////////////
-/////////////////////////////////////////////
-////////////////////////////////////////////
-  pipeline_id_ex.inst1alu(inst1sg);
-  tb.inst1in(inst1sg);
+   immgen.inex(cgenin);
+   immgen.outex(coutgen);
+   // definir salida outbranch1
 
-  pipeline_id_ex.inst2alu(inst2sg);
-  tb.inst2in(inst2sg);
+ // pipeline_id_ex.puerto(cable);
 
-  pipeline_id_ex.inst3alu(inst3sg);
-  tb.inst3in(inst3sg);
+   pipeline_id_ex.inst1(it1);
+   pipeline_id_ex.inst2(it2);
+   pipeline_id_ex.inst3(it3);
+   pipeline_id_ex.inst4(it4);
 
-  pipeline_id_ex.inst4alu(inst4sg);
-  tb.inst4in(inst4sg);
+   pipeline_id_ex.readdata1(crd1);
+   pipeline_id_ex.readdata2(crd2);
 
-  pipeline_id_ex.rd1(rd1sg);
-  tb.rd1in(rd1sg);
+   pipeline_id_ex.memwrite(cmw);
+   pipeline_id_ex.memtoreg(cmtr);
+   pipeline_id_ex.memread(cmr);
+   pipeline_id_ex.branch(cb);
+   pipeline_id_ex.alusrc(cas);
+   pipeline_id_ex.aluop2(cao2);
+   pipeline_id_ex.aluop1(cao1);
+   pipeline_id_ex.aluop3(cao0);
 
-  pipeline_id_ex.rd2(rd2sg);
-  tb.rd2in(rd2sg);
-
-  pipeline_id_ex.ig(igsg);
-  tb.igin(igsg);
-
-  pipeline_id_ex.bp(bps);
-  tb.bin(bps);
-
-  pipeline_id_ex.mrp(mrpsg);
-  tb.mrin(mrpsg);
-
-  pipeline_id_ex.mtrp(mtrpsg);
-  tb.mtrin(mtrpsg);
-
-  pipeline_id_ex.alu1(alu1sg);
-  tb.a1in(alu1sg);
-
-  pipeline_id_ex.alu2(alu2sg);
-  tb.a2in(alu2sg);
-
-  pipeline_id_ex.alu3(alu3sg);
-  tb.a3in(alu3sg);
-
-  pipeline_id_ex.mwp(mwpsg);
-  tb.mwin(mwpsg);
-
-  pipeline_id_ex.as(assg);
-  tb.asrcin(assg);
-/*
-  pipeline_id_ex.inst1(i1sg);
-  pipeline_id_ex.inst2(i2sg);
-  pipeline_id_ex.inst3(i3sg);
-  pipeline_id_ex.inst4(i4sg);
-  pipeline_id_ex.readdata1(readdata1sg);
-  pipeline_id_ex.readdata2(readdata2sg);
-  pipeline_id_ex.immgen(immgensg);
-  pipeline_id_ex.branch(bsg);
-  pipeline_id_ex.memread(mrsg);
-  pipeline_id_ex.memtoreg(mtrsg);
-  pipeline_id_ex.aluop1(a3);
-  pipeline_id_ex.aluop2(a2);
-  pipeline_id_ex.aluop3(a1);
-  pipeline_id_ex.memwrite(mwsg);
-  pipeline_id_ex.alusrc(asrcsg);
-
-  pipeline_id_ex.inst1alu(inst1sg);
-  pipeline_id_ex.inst2alu(inst2sg);
-  pipeline_id_ex.inst3alu(inst3sg);
-  pipeline_id_ex.inst4alu(inst4sg);
-  pipeline_id_ex.rd1(rd1sg);
-  pipeline_id_ex.rd2(rd2sg);
-  pipeline_id_ex.ig(igsg);
-  pipeline_id_ex.bp(bps);
-  pipeline_id_ex.mrp(mrpsg);
-  pipeline_id_ex.mtrp(mtrpsg);
-  pipeline_id_ex.alu1(alu1sg);
-  pipeline_id_ex.alu2(alu2sg);
-  pipeline_id_ex.alu3(alu3sg);
-  pipeline_id_ex.mwp(mwpsg);
-  pipeline_id_ex.as(assg);
-  
-
-  tb.inst1in(inst1sg);
-  tb.inst2in(inst2sg);
-  tb.inst3in(inst3sg);
-  tb.inst4in(inst4sg);
-  tb.rd1in(rd1sg);
-  tb.rd2in(rd2sg);
-  tb.igin(igsg);
-  tb.bin(bps);
-  tb.mrin(mrpsg);
-  tb.mtrin(mtrsg);
-  tb.a1in(alu1sg);
-  tb.a2in(alu2sg);
-  tb.a3in(alu3sg);
-  tb.mwin(mwpsg);
-  tb.asrcin(assg);
-
-  tb.inst1out(i1sg);
-  tb.inst2out(i2sg);
-  tb.inst3out(i3sg);
-  tb.inst4out(i4sg);
-  tb.rd1out(readdata1sg);
-  tb.rd2out(readdata2sg);
-  tb.igout(immgensg);
-  tb.bout(bsg);
-  tb.mrout(mrsg);
-  tb.mtrout(mtrpsg);
-  tb.mtrin(mtrsg);
-  tb.a1out(a3);
-  tb.a2out(a2);
-  tb.a3out(a1);
-  tb.mwout(mwsg);
-  tb.asrcout(asrcsg);
-*/
+   pipeline_id_ex.immgen(coutgen);
   // Conectando el reloj al testbench
   tb.clkIn(clock);
 
