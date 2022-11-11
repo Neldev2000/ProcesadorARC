@@ -157,7 +157,7 @@
   sc_clock clock("clock", period, 0.5, delay, true);
 
   // Creando instancias de los módulos
-  pipeline_if_id pipeline_if_id("pipe_ifid");
+ 
   ControlUnit controlUnit("controlUnit");
   register_files registerfiles("reg_fil");
   immgen immgen("immgen");
@@ -174,24 +174,24 @@
 
   // Conectando los módulos a los cables modulo.
 
- //pipeline_if_id pipeline_if_id.puerto(cable);
+ //pipelineIfId pipelineIfId.puerto(cable);
 
-   pipeline_if_id.i12out(it1);
-   pipeline_if_id.i13out(it2);
-   pipeline_if_id.i14out(it3);
-   pipeline_if_id.i30out(it4);
+   pipelineIfId.i12out(it1);
+   pipelineIfId.i13out(it2);
+   pipelineIfId.i14out(it3);
+   pipelineIfId.i30out(it4);
 
-   pipeline_if_id.i2out(cib2);
-   pipeline_if_id.i3out(cib3);
-   pipeline_if_id.i4out(cib4);
-   pipeline_if_id.i5out(cib5); 
-   pipeline_if_id.i6out(cib6);  
+   pipelineIfId.i2out(cib2);
+   pipelineIfId.i3out(cib3);
+   pipelineIfId.i4out(cib4);
+   pipelineIfId.i5out(cib5); 
+   pipelineIfId.i6out(cib6);  
 
-   pipeline_if_id.imoutrs1(crs1);
-   pipeline_if_id.imoutrs2(crs2);
-   pipeline_if_id.imoutrd(crd);
+   pipelineIfId.imoutrs1(crs1);
+   pipelineIfId.imoutrs2(crs2);
+   pipelineIfId.imoutrd(crd);
 
-   pipeline_if_id.imoutgen(cgenin); 
+   pipelineIfId.imoutgen(cgenin); 
 
 
    // controlUnit.puerto(cable);
