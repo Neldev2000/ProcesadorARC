@@ -1,12 +1,4 @@
-// montando el main principal
-//0 - if/id
-
-
-
-
-
-
-
+#include "utils.h"
 
 
 
