@@ -57,7 +57,26 @@ int sc_main(int argc, char const *argv[])
     instructionMemory.immGen(channelImmGen);
     pipelineIfId.imingen(channelImmGen);
 
+/// --------------------------------------------
+/// --------------------------------------------
+/// --------------------------------------------
+
+    program_counter programCounter("programCounter");
+    Adder4 adder4("Adder4");
+
+    sc_signal<sc_bv<32>> channelPCtoInstructionMemory, channelPCtoAdder4, channelAdder4toMux;
+    
+    programCounter.outInstruction(channelPCtoInstructionMemory);
+    instructionMemory.programCounterIndex(channelPCtoInstructionMemory);
+
+    programCounter.outAdd4(channelPCtoAdder4);
+    adder4.pcIn(channelPCtoAdder4);
+
+    //TODO: Conectar adder4.pcOut con mux
+    //TODO: Conectar mux.Out con programCounter.inputCounter
+
     // IF-ID
+    sc_start();
     return 0;
 }
 
