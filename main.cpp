@@ -317,11 +317,6 @@ int sc_main(int argc, char *argv[])
 	//@@@@Conexion de Pipeline Id/Ex Señal Alu Op 3 a ALU Control
 	pipeline_id_ex.alu3(op3Sg);
 	alucontrol.aluOp2(op3Sg);
-
-    testbench.clkIn(clock);
-
-    sc_start();
-
   
   // EX - MEM
   
