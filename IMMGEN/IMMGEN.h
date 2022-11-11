@@ -11,7 +11,6 @@ public:
     sc_in<sc_bv<12>> inex;
 
     sc_out<sc_bv<32>> outex;
-    sc_out<sc_bv<32>> outbranch1;
 
 private:
 

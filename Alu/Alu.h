@@ -7,10 +7,11 @@
 
 class Alu: public sc_module {
     public:
+		sc_out<sc_bv<32>> res;
+		sc_out<bool> zero;
         sc_in<sc_bv<32>> rs1, rs2;
 		sc_in <bool> aluOp1, aluOp2,aluOp3;
-    	sc_out<sc_bv<32>> res;
-		sc_out<bool> zero;
+    	
 
     	SC_CTOR(Alu);
 	private:

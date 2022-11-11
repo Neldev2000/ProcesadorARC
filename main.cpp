@@ -65,7 +65,7 @@ int sc_main(int argc, char *argv[])
     program_counter programCounter("programCounter");
     Adder4 adder4("Adder4");
 
-    sc_signal<sc_bv<32>> channelPCtoinstructionMemory, channelPCtoAdder4, channelAdder4toMux;
+    sc_signal<sc_bv<32>> channelPCtoinstructionMemory, channelPCtoAdder4;
     
     programCounter.outInstruction(channelPCtoinstructionMemory);
     instructionMemory.programCounterIndex(channelPCtoinstructionMemory);
@@ -81,12 +81,6 @@ int sc_main(int argc, char *argv[])
 
     // if/id - id/ex
 
-
-  sc_time period(10, SC_NS);
-  sc_time delay(0, SC_NS);
-
-  // Creando el reloj
-  sc_clock clock("clock", period, 0.5, delay, true);
 
   // Creando instancias de los módulos
  
@@ -187,32 +181,29 @@ int sc_main(int argc, char *argv[])
   // EX - MEM
   
   //@@@@@@@@@Reloj
-    sc_time period(10, SC_NS);
-    sc_time delay(10, SC_NS);
-    sc_clock clock("clock", period, 0.5, delay, true);
 
     DataMemory datamemory("datamemory");
     MemWb memwb("memwb");
 	ExMem exmem("exmen");
-	AndGate and("and");
+	AndGate andGate("and");
 	Alu alu("alu");
-	AluControl alucontrol("alucontrol");
-	pipeline_id_ex pipeline_id_ex("pipeline_id_ex");
+	ALUControl alucontrol("alucontrol");
+	//pipeline_id_ex pipeline_id_ex("pipeline_id_ex");
 
 
-    sc_signal<sc_bv<32>> readDataSg,mtrPSg,rSg,aSg, mdSg,resSg,rd1Sg,rd2Sg;
-	sc_signal<bool> mwDmSg,mrDmSg,and1Sg, and2Sg,zeroSg,alu1Sg,alu2Sg,alu3Sg,bpSg,igSg,mtrpSg,mwpSg,i1Sg,i2Sg,i3Sg,i4Sg,op1Sg,op2Sg,op3Sg;
+    sc_signal<sc_bv<32>> readDataSg,rSg,aSg, mdSg,resSg,rd1Sg,rd2Sg,wdSg,igSg;
+	sc_signal<bool> mwDmSg,mrDmSg,and1Sg, and2Sg,zeroSg,alu1Sg,alu2Sg,alu3Sg,bpSg,mtrp2Sg,mtrpSg,mwpSg,i1Sg,i2Sg,i3Sg,i4Sg,op1Sg,op2Sg,op3Sg,mrpSg;
 
     //@@@@@@@@@Conexion con los Canales correspondientes
 
 
 	//@@@@Conexion de Data Memory a Pipeline Mem/Wb
 	datamemory.readData(readDataSg);
-	memwb.addressOut(readDataSg);
+	memwb.readData(readDataSg);
 
 	//@@@@Conexion de Pipeline Ex/Mem Señal MemToReg a Pipeline Mem/Wb
-	exmem.memToRegP(mtrPSg);
-	memwb.memToReg(mtrPSg);
+	exmem.memToRegP(mtrp2Sg);
+	memwb.memToReg(mtrp2Sg);
 
 	//@@@@Conexion de Pipeline Ex/Mem Señal Res(Alu) a Pipeline Mem/Wb
 	exmem.rp(rSg);
@@ -236,11 +227,11 @@ int sc_main(int argc, char *argv[])
 
 	//@@@@Conexion de Pipeline Ex/Mem Señal Brach a And Gate
 	exmem.brachAnd(and1Sg);
-	and.inA(and1Sg);
+	andGate.inA(and1Sg);
 
 	//@@@@Conexion de Pipeline Ex/Mem Señal Zero(Alu) a And Gate
 	exmem.zeroAnd(and2Sg);
-	and.inB(and2Sg);
+	andGate.inB(and2Sg);
 
 	//@@@@Conexion de ALU Señal Zero(Alu) a Pipeline Ex/Mem
 	alu.zero(zeroSg);
@@ -268,7 +259,7 @@ int sc_main(int argc, char *argv[])
 
 	//@@@@Conexion de Pipeline Id/Ex Señal branch a Ex/Mem
 	pipeline_id_ex.bp(bpSg);
-	exmem.branch(bpSg);
+	exmem.brach(bpSg);
 
 	//@@@@Conexion de Pipeline Id/Ex Señal Imm Gen a Ex/Mem
 	pipeline_id_ex.ig(igSg);
@@ -320,6 +311,61 @@ int sc_main(int argc, char *argv[])
   
   // EX - MEM
   
+    //
+    Mux2a1 muxAPC("muxAPC"), muxAALU("muxAALU"), muxAWriteData("muxAWriteData");
+
+    sc_signal<sc_bv<32>> channelAdderToMux,channelImmGenToMux, channelMuxToPC; 
+    adder4.pcOut(channelAdderToMux);
+    muxAPC.inB(channelAdderToMux);
+
+    exmem.sumMux(channelImmGenToMux);
+    muxAPC.inA(channelImmGenToMux);
+
+    sc_signal<bool> channelAndToMux;
+    andGate.output(channelAndToMux);
+    muxAPC.controlSignal(channelAndToMux);
+
+    muxAPC.output(channelMuxToPC);
+    programCounter.inputCounter(channelMuxToPC);
+    //
+    //
+
+    sc_signal<sc_bv<32>> channelRs2ToMux,channelImmGenToMux2, channelMuxToALU;
+    sc_signal<bool> channelControlToMux;
+
+    muxAALU.inB(channelRs2ToMux);
+    pipeline_id_ex.rd2mux(channelRs2ToMux);
+
+    muxAALU.inA(channelImmGenToMux2);
+    pipeline_id_ex.igmux(channelImmGenToMux2);
+
+    muxAALU.controlSignal(channelControlToMux);
+    pipeline_id_ex.as(channelControlToMux);
+
+    muxAALU.output(channelMuxToALU);
+    alu.rs2(channelMuxToALU);
+
+    //
+
+    //
+    sc_signal<sc_bv<32>> channnelReadDataToMux, channelResToMux, channelMuxToRegister;
+    sc_signal<bool> channelMemToReg;
+
+    muxAWriteData.inA(channnelReadDataToMux);
+    memwb.readDataMux(channnelReadDataToMux);
+
+    muxAWriteData.inB(channelResToMux);
+    memwb.resMux(channelResToMux);
+
+    muxAWriteData.controlSignal(channelMemToReg);
+    memwb.memToRegMux(channelMemToReg);
+
+    muxAWriteData.output(channelMuxToRegister);
+    registerfiles.wd(channelMuxToRegister);
+    
+
+    //
+
     sc_start();
     return 0;
 }

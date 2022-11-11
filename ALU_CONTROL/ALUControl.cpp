@@ -1,6 +1,6 @@
-#include "AluControl.h"
+#include "ALUControl.h"
 
-AluControl::AluControl(sc_module_name modName):
+ALUControl::ALUControl(sc_module_name modName):
     sc_module(modName),
     aluOp0("ALUOp0"),aluOp1("ALUOp1"), aluOp2("ALUOp2"),
     i30("i30"), i14("i14"), i13("i13"), i12("i12"),

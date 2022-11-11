@@ -5,7 +5,7 @@
 #include "Alu.h"
 #include "InstructionMemory.h"
 #include "IMMGEN.h"
-#include "AluControl.h"
+#include "ALUControl.h"
 #include "ControlUnit.h"
 #include "DataMemory.h"
 #include "ExMem.h"

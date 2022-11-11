@@ -7,6 +7,7 @@ pipeline_id_ex::pipeline_id_ex(sc_module_name nm) :
   readdata1("readdata1"), readdata2("readdata2"),
   immgen("immgen"), inst1alu("inst1alu"),  
   inst2alu("inst2alu"), inst3alu("inst3alu"), inst4alu("inst4alu"),
+  
   bp("bp"), mrp("mrp"), mtrp("mtrp"), alu1("alu1"), alu2("alu2"), alu3("alu3"), mwp("mwp"), as("as"), rd1("rd1"), rd2("rd2"), ig("ig") {//inicializar puertos
 
   SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion

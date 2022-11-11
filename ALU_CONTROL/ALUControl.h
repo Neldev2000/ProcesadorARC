@@ -7,10 +7,10 @@
 #include "Output1.h"
 #include "Output2.h"
 
-class AluControl : public sc_module
+class ALUControl : public sc_module
 {
 public:
-    SC_CTOR(AluControl);
+    SC_CTOR(ALUControl);
 
    // void process();
 

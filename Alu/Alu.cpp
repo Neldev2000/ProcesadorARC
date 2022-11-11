@@ -1,7 +1,7 @@
 #include "Alu.h"
 
 
-Alu::Alu(sc_module_name nm):sc_module(nm), res("res"), zero("zero") {
+Alu::Alu(sc_module_name nm):sc_module(nm), res("res"), zero("zero"), rs1("rs1"), rs2("rs2"),aluOp1("aluOp1"),aluOp2("aluOp2"),aluOp3("aluOp3") {
 	SC_METHOD(operacion);
     
     sensitive << rs1 << rs2 << aluOp1 <<aluOp2 <<aluOp3;
