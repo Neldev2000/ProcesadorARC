@@ -1,7 +1,7 @@
 // montando el main principal
 //0 - if/id
 
-int main() {
+
 
 
 
@@ -155,8 +155,13 @@ int main() {
   sc_clock clock("clock", period, 0.5, delay, true);
 
   // Creando instancias de los módulos
+  pipeline_if_id pipeline_if_id("pipe_ifid");
+  ControlUnit controlUnit("controlUnit");
+  register_files registerfiles("reg_fil");
+  immgen immgen("immgen");
   pipeline_id_ex pipeline_id_ex("pipe_idex");
-  Testbench tb("testBench");
+
+
 
   // Necesitaremos cables para conectar los módulos
   sc_signal<bool> i1sg, i2sg, i3sg, i4sg, bsg, mrsg, mtrsg, a3, a2, a1, mwsg, asrcsg;
@@ -766,11 +771,6 @@ int main() {
 
 
 
-
-
-
-    return 0;
-}
 
 
 
