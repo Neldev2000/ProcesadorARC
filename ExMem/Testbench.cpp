@@ -25,7 +25,6 @@ void Testbench::test() {
     zOut.write(true);
     addressOut.write("100");
     rd2Out.write("10111");
-    resOut.write("1010");
     bOut.write(false);
     mrOut.write(true);
     mwOut.write(false);

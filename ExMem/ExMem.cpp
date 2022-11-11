@@ -2,7 +2,7 @@
 
 
 ExMem::ExMem(sc_module_name nm):sc_module(nm),sumMux("sumMux"),addressDm("addressDm"),
-    writeDataDm("writeDataDm"), zeroAnd("zeroAnd"),brachAnd("brachAnd"),
+    rp("rp"),writeDataDm("writeDataDm"), zeroAnd("zeroAnd"),brachAnd("brachAnd"),
         memReadDm("memReadDm"),memWriteDm("memWriteDm"),memToRegP("memToRegP"){
 
 	SC_METHOD(operacion);
@@ -16,7 +16,7 @@ void ExMem::operacion(){
 
     sumMux.write(sum.read());
     zeroAnd.write(zero.read());
-	addressDm.write(address.read());
+	addressDm.write(res.read());
     writeDataDm.write(readData2.read());
     rp.write(res.read());
 
