@@ -17,8 +17,8 @@ pipeline_if_id::pipeline_if_id(sc_module_name nm) :
   sensitive << i30    << i14     << i13 << i12
             << i6     << i5      << i4  << i3  << i2
             << iminrd << iminrs2 << iminrs1 
-            << imingen; // estas son las que van a cambiar
-  dont_initialize();
+            << imingen << adder4; // estas son las que van a cambiar
+  //dont_initialize();
    
 }
 
@@ -30,7 +30,8 @@ void pipeline_if_id::operation() { //  variableout.write(dato in);
        << "i12: " << i12.read() << endl
        << "rd: " << iminrd.read() << endl
        << "rs1: " << iminrs1.read() << endl
-       << "immGen: " << imingen.read() << endl;
+       << "immGen: " << imingen.read() << endl
+       << "adder4: " << adder4.read() << endl;
 
 
   i30Out.write(i30.read());

@@ -5,8 +5,6 @@
 int sc_main(int argc, char *argv[])
 {
     // IF-ID
-    
-
 
     pipeline_if_id pipelineIfId("pipelineIfId");
     InstructionMemory instructionMemory("instructionMemory");
@@ -93,16 +91,9 @@ int sc_main(int argc, char *argv[])
 
   // Creando instancias de los módulos
  
-  ControlUnit controlUnit("controlUnit");
-  register_files registerfiles("reg_fil");
-  IMMGEN immgen("immgen");
-  pipeline_id_ex pipeline_id_ex("pipe_idex");
-
-
-    sc_signal<sc_bv<32>> channAdderIF_EX;
-    pipelineIfId.adder4Out(channAdderIF_EX);
-    pipeline_id_ex.adder4(channAdderIF_EX);
-
+ 
+  
+  
 
   // Necesitaremos cables para conectar los módulos
   sc_signal<bool> it1, it2, it3, it4, cib2, cib3, cib4, cib5, cib6, cdregister, cmw, cmtr, cmr, cb, cas, cao2, cao1, cao0;
@@ -135,7 +126,8 @@ int sc_main(int argc, char *argv[])
 
 
    // controlUnit.puerto(cable);
-
+    ControlUnit controlUnit("controlUnit");
+ 
    controlUnit.i2(cib2);
    controlUnit.i3(cib3);
    controlUnit.i4(cib4);
@@ -153,7 +145,7 @@ int sc_main(int argc, char *argv[])
    controlUnit.aluOp0(cao0);
 
    //registerfiles.puerto(cable);
-
+     register_files registerfiles("reg_fil");
    registerfiles.rs1(crs1);
    registerfiles.rs2(crs2);
    registerfiles.rd(crd);
@@ -165,12 +157,20 @@ int sc_main(int argc, char *argv[])
    registerfiles.regwritein(cdregister);
 
   //immgen.puerto(cable);
-
+    IMMGEN immgen("immgen");
    immgen.inex(cgenin);
    immgen.outex(coutgen);
    // definir salida outbranch1
 
  // pipeline_id_ex.puerto(cable);
+
+    pipeline_id_ex pipeline_id_ex("pipe_idex");
+
+
+    sc_signal<sc_bv<32>> channAdderIF_EX;
+    pipelineIfId.adder4Out(channAdderIF_EX);
+    pipeline_id_ex.adder4(channAdderIF_EX);
+
 
    pipeline_id_ex.inst1(it1);
    pipeline_id_ex.inst2(it2);

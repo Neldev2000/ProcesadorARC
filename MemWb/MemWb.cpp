@@ -9,8 +9,9 @@ MemWb::MemWb(sc_module_name nm):sc_module(nm),
     adder4Out("adder4Out"), immGenBranchOut("immGenBranchOut"),
     andGateOut("andGateOut"){
 	SC_METHOD(operacion);
+    
+    sensitive << readData << res << memToReg << adder4 <<immGenBranch <<andGate;
     dont_initialize();
-    sensitive << readData << res << memToReg;
 }
 
 void MemWb::operacion(){

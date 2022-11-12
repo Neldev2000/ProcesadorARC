@@ -15,7 +15,7 @@ pipeline_id_ex::pipeline_id_ex(sc_module_name nm) :
 
   SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion
   
-  sensitive << inst1 << inst2 << inst3 << inst4 << branch << memread << memtoreg << aluop1 << aluop2 << aluop3 << memwrite << alusrc << readdata1 << readdata2 << immgen; // estas son las que van a cambiar
+  sensitive << adder4<< inst1 << inst2 << inst3 << inst4 << branch << memread << memtoreg << aluop1 << aluop2 << aluop3 << memwrite << alusrc << readdata1 << readdata2 << immgen; // estas son las que van a cambiar
   dont_initialize();
    
 }
@@ -40,7 +40,8 @@ void pipeline_id_ex::operation() { //  variableout.write(dato in);
     igmux.write(immgen.read());
     rd2mux.write(readdata2.read());  
     adder4Out.write(adder4.read());
-  cout << "IDEX immGen "<< immgen.read() << endl;
+  cout << "\n===================="<< "IDEX "
+      <<endl;
 
     
 }

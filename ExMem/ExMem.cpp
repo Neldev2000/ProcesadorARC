@@ -10,7 +10,7 @@ ExMem::ExMem(sc_module_name nm):sc_module(nm),
 
 	SC_METHOD(operacion);
    
-    sensitive  <<sum<<zero<<res<<readData2<<brach<<memRead<<memWrite<<memToReg;
+    sensitive  << adder4 <<sum<<zero<<res<<readData2<<brach<<memRead<<memWrite<<memToReg;
      dont_initialize();
 }
 
