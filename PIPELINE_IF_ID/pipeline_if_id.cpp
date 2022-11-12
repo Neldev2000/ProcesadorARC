@@ -24,6 +24,15 @@ pipeline_if_id::pipeline_if_id(sc_module_name nm) :
 
 void pipeline_if_id::operation() { //  variableout.write(dato in);
 
+  cout << "i30: " << i30.read() << endl
+       << "i14: " << i14.read() << endl
+       << "i13: " << i13.read() << endl
+       << "i12: " << i12.read() << endl
+       << "rd: " << iminrd.read() << endl
+       << "rs1: " << iminrs1.read() << endl
+       << "immGen: " << imingen.read() << endl;
+
+
   i30Out.write(i30.read());
   i14Out.write(i14.read());
   i13Out.write(i13.read());

@@ -26,6 +26,8 @@ inst1("inst1"),inst2("inst2"), inst3("inst3"), inst4("inst4"), branch("branch"),
 
   private:
     void operation();
+    void trigger();
+  
 };
 
 #endif

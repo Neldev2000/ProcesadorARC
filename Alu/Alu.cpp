@@ -73,6 +73,9 @@ void Alu::operacion(){
     	res.write(test);
 		zero.write(val);
   	}
+
+	cout << "ALU: "<< res.read() << endl
+		<< "-------------\n";
 }
 
 //@@@ Metodo Sumar(Instrucciones: add,addi,lw,sw,jalr)

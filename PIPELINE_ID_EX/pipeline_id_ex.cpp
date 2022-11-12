@@ -8,16 +8,17 @@ pipeline_id_ex::pipeline_id_ex(sc_module_name nm) :
   immgen("immgen"), inst1alu("inst1alu"),  
   inst2alu("inst2alu"), inst3alu("inst3alu"), inst4alu("inst4alu"),
   
-  bp("bp"), mrp("mrp"), mtrp("mtrp"), alu1("alu1"), alu2("alu2"), alu3("alu3"), mwp("mwp"), as("as"), rd1("rd1"), rd2("rd2"), ig("ig") {//inicializar puertos
+  bp("bp"), mrp("mrp"), mtrp("mtrp"), alu1("alu1"), alu2("alu2"), alu3("alu3"), mwp("mwp"), as("as"), rd1("rd1"), rd2("rd2"), ig("ig"), igmux("igmux"), rd2mux("rd2mux") {//inicializar puertos
 
   SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion
+  
   sensitive << inst1 << inst2 << inst3 << inst4 << branch << memread << memtoreg << aluop1 << aluop2 << aluop3 << memwrite << alusrc << readdata1 << readdata2 << immgen; // estas son las que van a cambiar
- // dont_initialize();
+  dont_initialize();
    
 }
 
 void pipeline_id_ex::operation() { //  variableout.write(dato in);
-
+    
     inst1alu.write(inst1.read());
     inst2alu.write(inst2.read());
     inst3alu.write(inst3.read());
@@ -36,7 +37,9 @@ void pipeline_id_ex::operation() { //  variableout.write(dato in);
     igmux.write(immgen.read());
     rd2mux.write(readdata2.read());  
 
+  cout << "IDEX immGen "<< immgen.read() << endl;
 
+    
 }
 
 

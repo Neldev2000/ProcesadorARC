@@ -1,9 +1,30 @@
 #include "utils.h"
 //#include "instructionMemory.h"
+
+// C function showing how to do time delay
+#include <stdio.h>
+// To use time library of C
+#include <time.h>
+ 
+void delay(int number_of_seconds)
+{
+    // Converting time into milli_seconds
+    int milli_seconds = 1000 * number_of_seconds;
+ 
+    // Storing start time
+    clock_t start_time = clock();
+ 
+    // looping till required time is not achieved
+    while (clock() < start_time + milli_seconds)
+        ;
+}
+
 int sc_main(int argc, char *argv[])
 {
     // IF-ID
     
+
+
     pipeline_if_id pipelineIfId("pipelineIfId");
     InstructionMemory instructionMemory("instructionMemory");
 
@@ -13,6 +34,7 @@ int sc_main(int argc, char *argv[])
     sc_signal<bool> channelI6, channelI5, channelI4, channelI3, channelI2;
     sc_signal<sc_bv<5>> channelRs1, channelRs2, channelRd;
     sc_signal<sc_bv<12>> channelImmGen;
+   
 
     instructionMemory.i30(channelI30);
     pipelineIfId.i30(channelI30);
@@ -58,27 +80,25 @@ int sc_main(int argc, char *argv[])
     instructionMemory.immGen(channelImmGen);
     pipelineIfId.imingen(channelImmGen);
 
-/// --------------------------------------------
-/// --------------------------------------------
-/// --------------------------------------------
 
+    Adder4 adder4("adder4");
     program_counter programCounter("programCounter");
-    Adder4 adder4("Adder4");
+    sc_signal<sc_bv<32>> channPCADD, channPCInst;
+    adder4.pcIn(channPCADD);
+    programCounter.outAdd4(channPCADD);
 
-    sc_signal<sc_bv<32>> channelPCtoinstructionMemory, channelPCtoAdder4;
-    
-    programCounter.outInstruction(channelPCtoinstructionMemory);
-    instructionMemory.programCounterIndex(channelPCtoinstructionMemory);
+    instructionMemory.programCounterIndex(channPCInst);
+    programCounter.outInstruction(channPCInst);
 
-    programCounter.outAdd4(channelPCtoAdder4);
-    adder4.pcIn(channelPCtoAdder4);
-
+/// --------------------------------------------
+/// --------------------------------------------
+/// --------------------------------------------
     //TODO: Conectar adder4.pcOut con mux
     //TODO: Conectar mux.Out con programCounter.    
 
     // IF-ID
 
-
+    
     // if/id - id/ex
 
 
@@ -88,6 +108,9 @@ int sc_main(int argc, char *argv[])
   register_files registerfiles("reg_fil");
   IMMGEN immgen("immgen");
   pipeline_id_ex pipeline_id_ex("pipe_idex");
+
+
+    
 
 
   // Necesitaremos cables para conectar los módulos
@@ -191,10 +214,12 @@ int sc_main(int argc, char *argv[])
 	//pipeline_id_ex pipeline_id_ex("pipeline_id_ex");
 
 
+
     sc_signal<sc_bv<32>> readDataSg,rSg,aSg, mdSg,resSg,rd1Sg,rd2Sg,wdSg,igSg;
 	sc_signal<bool> mwDmSg,mrDmSg,and1Sg, and2Sg,zeroSg,alu1Sg,alu2Sg,alu3Sg,bpSg,mtrp2Sg,mtrpSg,mwpSg,i1Sg,i2Sg,i3Sg,i4Sg,op1Sg,op2Sg,op3Sg,mrpSg;
 
     //@@@@@@@@@Conexion con los Canales correspondientes
+
 
 
 	//@@@@Conexion de Data Memory a Pipeline Mem/Wb
@@ -257,6 +282,23 @@ int sc_main(int argc, char *argv[])
 	pipeline_id_ex.rd1(rd1Sg);
 	alu.rs1(rd1Sg);
 
+    //Conexion Pipeline
+    Mux2a1 muxALU("muxALU");
+    sc_signal<sc_bv<32>> channImmGenToMux, channelrd2ToMux, channRs2ALU;
+    sc_signal<bool> channAluSrc;
+
+    muxALU.inA(channImmGenToMux);
+    pipeline_id_ex.igmux(channImmGenToMux);
+
+    muxALU.inB(channelrd2ToMux);
+    pipeline_id_ex.rd2mux(channelrd2ToMux);
+
+    muxALU.controlSignal(channAluSrc);
+    pipeline_id_ex.as(channAluSrc);
+
+    muxALU.output(channRs2ALU);
+    alu.rs2(channRs2ALU);
+
 	//@@@@Conexion de Pipeline Id/Ex Señal branch a Ex/Mem
 	pipeline_id_ex.bp(bpSg);
 	exmem.brach(bpSg);
@@ -309,62 +351,42 @@ int sc_main(int argc, char *argv[])
 	pipeline_id_ex.alu3(op3Sg);
 	alucontrol.aluOp2(op3Sg);
   
+
+
   // EX - MEM
   
-    //
-    Mux2a1 muxAPC("muxAPC"), muxAALU("muxAALU"), muxAWriteData("muxAWriteData");
 
-    sc_signal<sc_bv<32>> channelAdderToMux,channelImmGenToMux, channelMuxToPC; 
-    adder4.pcOut(channelAdderToMux);
-    muxAPC.inB(channelAdderToMux);
+    Mux2a1 muxPC("muxPC");
+    sc_signal<sc_bv<32>> channAdder4, channBranch, channNewPC;
+    sc_signal<bool> channAndGate;
 
-    exmem.sumMux(channelImmGenToMux);
-    muxAPC.inA(channelImmGenToMux);
+    muxPC.inA(channBranch);
+    exmem.sumMux(channBranch);
 
-    sc_signal<bool> channelAndToMux;
-    andGate.output(channelAndToMux);
-    muxAPC.controlSignal(channelAndToMux);
+    muxPC.inB(channAdder4);
+    adder4.pcOut(channAdder4);
 
-    muxAPC.output(channelMuxToPC);
-    programCounter.inputCounter(channelMuxToPC);
-    //
-    //
+    muxPC.controlSignal(channAndGate);
+    andGate.output(channAndGate);
 
-    sc_signal<sc_bv<32>> channelRs2ToMux,channelImmGenToMux2, channelMuxToALU;
-    sc_signal<bool> channelControlToMux;
+    muxPC.output(channNewPC);
+    programCounter.inputCounter(channNewPC);
 
-    muxAALU.inB(channelRs2ToMux);
-    pipeline_id_ex.rd2mux(channelRs2ToMux);
+    Mux2a1 muxWriteData("muxWriteData");
+    sc_signal<sc_bv<32>> channReadData, channRes, channWriteData;
+    sc_signal<bool> channMemToReg;
 
-    muxAALU.inA(channelImmGenToMux2);
-    pipeline_id_ex.igmux(channelImmGenToMux2);
+    muxWriteData.inA(channReadData);
+    memwb.readDataMux(channReadData);
 
-    muxAALU.controlSignal(channelControlToMux);
-    pipeline_id_ex.as(channelControlToMux);
+    muxWriteData.inB(channRes);
+    memwb.resMux(channRes);
 
-    muxAALU.output(channelMuxToALU);
-    alu.rs2(channelMuxToALU);
+    muxWriteData.controlSignal(channMemToReg);
+    memwb.memToRegMux(channMemToReg);
 
-    //
-
-    //
-    sc_signal<sc_bv<32>> channnelReadDataToMux, channelResToMux, channelMuxToRegister;
-    sc_signal<bool> channelMemToReg;
-
-    muxAWriteData.inA(channnelReadDataToMux);
-    memwb.readDataMux(channnelReadDataToMux);
-
-    muxAWriteData.inB(channelResToMux);
-    memwb.resMux(channelResToMux);
-
-    muxAWriteData.controlSignal(channelMemToReg);
-    memwb.memToRegMux(channelMemToReg);
-
-    muxAWriteData.output(channelMuxToRegister);
-    registerfiles.wd(channelMuxToRegister);
-    
-
-    //
+    muxWriteData.output(channWriteData);
+    registerfiles.wd(channWriteData);
 
     sc_start();
     return 0;

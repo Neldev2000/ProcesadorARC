@@ -1,6 +1,6 @@
 #include "InstructionMemory.h"
 #include <iostream>
-
+#include <stdlib.h>
 #define charToInt(x) (int)(x - '0')
 using namespace std;
 set<string> rType = {"add", "sub", "sll", "or", "and", "slt" };
@@ -59,13 +59,17 @@ InstructionMemory::InstructionMemory(sc_module_name modName):
 
 {
     SC_METHOD(process);
-    dont_initialize();
+    
     sensitive << programCounterIndex;
+    dont_initialize();
 }
 void InstructionMemory::process() {
    // instructionDistribution.write(  ~programCounterIndex.read());
     string instruction = this->getInstruction();
-    //cout << instruction << " -> ";
+    if(instruction.length() == 0)
+        exit(EXIT_FAILURE);
+    cout << "======================================================="
+        << "\nInstructionMemory: \n" << instruction << " " << " -> ";
     vector< string > wordList;
     this->parseInstruction(instruction, wordList);
 
@@ -90,19 +94,23 @@ void InstructionMemory::process() {
     rd.write(bitList.range(11,7));
 
     immGen.write( bitList.range(31,20) );
-
+    
 }
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
 string InstructionMemory::getInstruction() {
     int line = programCounterIndex.read().to_int() / 4;
+    //line = (line == 0? 1 : line);
+    
     string instruction;
    
     programFile.open("program.txt");
-    for(int i = 0; i <= line; i++)
-        getline(programFile, instruction);
-    
+    for(int i = 0; i <= line; i++){
+        if(!programFile.eof())
+            getline(programFile, instruction);
+    }
+    cout << "linea a ejecutar :" << line << endl;
     programFile.close();
     return instruction;
 

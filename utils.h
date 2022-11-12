@@ -9,7 +9,7 @@
 #include "ControlUnit.h"
 #include "DataMemory.h"
 #include "ExMem.h"
-
+#include "TestBench.h"
 #include "MemWb.h"
 #include "pipeline_id_ex.h"
 #include "pipeline_if_id.h"

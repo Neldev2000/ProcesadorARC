@@ -2,6 +2,7 @@
 #define MUX_2_1
 
 #include <systemc.h>
+#include <string>
 class Mux2a1 : public sc_module
 {
 public:
@@ -13,6 +14,7 @@ public:
     
 private:
     void process();
+    //string name;
 };
 
 

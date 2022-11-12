@@ -4,15 +4,19 @@ register_files::register_files(sc_module_name nm) : sc_module(nm), rs1("rs1"), r
 
   SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion
   sensitive << rs1 << rs2 << rd << wd; // estas son las que van a cambiar
-  dont_initialize();
+  //dont_initialize();
    
 }
 
 void register_files::operation() { //  variableout.write(dato in);
-
+  cout << "REGISTER FILE \n\n";
   leer();
   escribir();
-
+  
+  cout << "RegWrite RF: " << regwritein.read() << endl
+   << "rd " << rd.read() << endl
+   << "wd " << wd.read() << endl
+   <<"================================================\n";
 }
 
     void register_files::leer(){
