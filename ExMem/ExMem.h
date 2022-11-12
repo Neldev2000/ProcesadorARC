@@ -10,11 +10,12 @@ class ExMem: public sc_module {
     public:
         sc_in<sc_bv<32>> sum,res,readData2;
 		sc_in<bool> zero,brach,memRead,memWrite,memToReg;
+		sc_in<sc_bv<32>> adder4;
 		
 
     	sc_out<sc_bv<32>> sumMux,addressDm,rp,writeDataDm;
 		sc_out<bool> zeroAnd,brachAnd,memReadDm,memWriteDm,memToRegP;
-
+		sc_out<sc_bv<32>> adder4Out;
     	SC_CTOR(ExMem);
 	private:
 		void operacion();

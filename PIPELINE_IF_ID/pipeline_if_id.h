@@ -16,6 +16,7 @@ class pipeline_if_id: public sc_module {
     sc_in<sc_bv<5>> iminrd, iminrs2, iminrs1;
 
      sc_in<sc_bv<12>> imingen;
+     sc_in<sc_bv<32>> adder4;
 //--------------------------------------------------------------
     sc_out<bool>  i30Out, i14Out, i13Out, i12Out;
 
@@ -24,6 +25,7 @@ class pipeline_if_id: public sc_module {
     sc_out<sc_bv<5>> imoutrd, imoutrs2, imoutrs1;
 
     sc_out<sc_bv<12>> imoutgen;
+    sc_out<sc_bv<32>> adder4Out;
 
     SC_CTOR(pipeline_if_id);
 

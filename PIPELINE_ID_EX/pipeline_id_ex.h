@@ -13,9 +13,11 @@ class pipeline_id_ex: public sc_module {
   public:
     sc_in<bool> inst1, inst2, inst3, inst4, branch, memread, memtoreg, aluop1, aluop2, aluop3, memwrite, alusrc;
     sc_in<sc_bv<32>> readdata1, readdata2, immgen;
+    sc_in<sc_bv<32>> adder4;
 //----------------------------------------------------------------------------------------------------------------
     sc_out<bool> inst1alu,  inst2alu, inst3alu, inst4alu, bp, mrp, mtrp, alu1, alu2, alu3, mwp, as;
     sc_out<sc_bv<32>> rd1, rd2, ig, igmux, rd2mux;
+    sc_out<sc_bv<32>> adder4Out;
 
     SC_CTOR(pipeline_id_ex);
 

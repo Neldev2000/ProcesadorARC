@@ -4,7 +4,7 @@ register_files::register_files(sc_module_name nm) : sc_module(nm), rs1("rs1"), r
 
   SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion
   sensitive << rs1 << rs2 << rd << wd; // estas son las que van a cambiar
-  //dont_initialize();
+  dont_initialize();
    
 }
 

@@ -1,23 +1,6 @@
 #include "utils.h"
 //#include "instructionMemory.h"
 
-// C function showing how to do time delay
-#include <stdio.h>
-// To use time library of C
-#include <time.h>
- 
-void delay(int number_of_seconds)
-{
-    // Converting time into milli_seconds
-    int milli_seconds = 1000 * number_of_seconds;
- 
-    // Storing start time
-    clock_t start_time = clock();
- 
-    // looping till required time is not achieved
-    while (clock() < start_time + milli_seconds)
-        ;
-}
 
 int sc_main(int argc, char *argv[])
 {
@@ -82,6 +65,12 @@ int sc_main(int argc, char *argv[])
 
 
     Adder4 adder4("adder4");
+    sc_signal<sc_bv<32>> channAddToIFID;
+    adder4.pcOut(channAddToIFID);
+    pipelineIfId.adder4(channAddToIFID);
+
+
+
     program_counter programCounter("programCounter");
     sc_signal<sc_bv<32>> channPCADD, channPCInst;
     adder4.pcIn(channPCADD);
@@ -110,7 +99,9 @@ int sc_main(int argc, char *argv[])
   pipeline_id_ex pipeline_id_ex("pipe_idex");
 
 
-    
+    sc_signal<sc_bv<32>> channAdderIF_EX;
+    pipelineIfId.adder4Out(channAdderIF_EX);
+    pipeline_id_ex.adder4(channAdderIF_EX);
 
 
   // Necesitaremos cables para conectar los módulos
@@ -212,9 +203,22 @@ int sc_main(int argc, char *argv[])
 	Alu alu("alu");
 	ALUControl alucontrol("alucontrol");
 	//pipeline_id_ex pipeline_id_ex("pipeline_id_ex");
+/// ---------------------------
+
+    sc_signal<sc_bv<32>> channelADDEX_MEM, channelADDMEM_WB;
+    
+    pipeline_id_ex.adder4Out(channelADDEX_MEM);
+    exmem.adder4(channelADDEX_MEM);
+
+    exmem.adder4Out(channelADDMEM_WB);
+    memwb.adder4(channelADDMEM_WB);
 
 
+    sc_signal<sc_bv<32>> channelIMMGEN_WB;
+    exmem.sumMux(channelIMMGEN_WB);
+    memwb.immGenBranch(channelIMMGEN_WB);
 
+/// ---------------------------
     sc_signal<sc_bv<32>> readDataSg,rSg,aSg, mdSg,resSg,rd1Sg,rd2Sg,wdSg,igSg;
 	sc_signal<bool> mwDmSg,mrDmSg,and1Sg, and2Sg,zeroSg,alu1Sg,alu2Sg,alu3Sg,bpSg,mtrp2Sg,mtrpSg,mwpSg,i1Sg,i2Sg,i3Sg,i4Sg,op1Sg,op2Sg,op3Sg,mrpSg;
 
@@ -258,13 +262,12 @@ int sc_main(int argc, char *argv[])
 	exmem.zeroAnd(and2Sg);
 	andGate.inB(and2Sg);
 
-	//@@@@Conexion de ALU Señal Zero(Alu) a Pipeline Ex/Mem
-	alu.zero(zeroSg);
-	exmem.zero(zeroSg);
+    sc_signal<bool>channAND_WB;
+    andGate.output(channAND_WB);
+    memwb.andGate(channAND_WB);
 
-	//@@@@Conexion de ALU Señal Res(Resultado) a Pipeline Ex/Mem
-	alu.res(resSg);
-	exmem.res(resSg);
+	//@@@@Conexion de ALU Señal Zero(Alu) a Pipeline Ex/Mem
+	
 
 	//@@@@Conexion de ALU Control Señal ALUop1 a ALU
 	alucontrol.aluF0(alu1Sg);
@@ -298,6 +301,13 @@ int sc_main(int argc, char *argv[])
 
     muxALU.output(channRs2ALU);
     alu.rs2(channRs2ALU);
+
+    alu.zero(zeroSg);
+	exmem.zero(zeroSg);
+
+	//@@@@Conexion de ALU Señal Res(Resultado) a Pipeline Ex/Mem
+	alu.res(resSg);
+	exmem.res(resSg);
 
 	//@@@@Conexion de Pipeline Id/Ex Señal branch a Ex/Mem
 	pipeline_id_ex.bp(bpSg);
@@ -361,13 +371,13 @@ int sc_main(int argc, char *argv[])
     sc_signal<bool> channAndGate;
 
     muxPC.inA(channBranch);
-    exmem.sumMux(channBranch);
+    memwb.immGenBranchOut(channBranch);
 
     muxPC.inB(channAdder4);
-    adder4.pcOut(channAdder4);
+    memwb.adder4Out(channAdder4);
 
     muxPC.controlSignal(channAndGate);
-    andGate.output(channAndGate);
+    memwb.andGateOut(channAndGate);
 
     muxPC.output(channNewPC);
     programCounter.inputCounter(channNewPC);

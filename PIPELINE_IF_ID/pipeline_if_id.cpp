@@ -6,12 +6,12 @@ pipeline_if_id::pipeline_if_id(sc_module_name nm) :
   i6("i6"), i5("i5"), i4("i4"), i3("i3"), i2("i2"),
 
   iminrd("iminrd"), iminrs2("iminrs2"), iminrs1("iminrs1"), 
-  imingen("imingen"), 
+  imingen("imingen"), adder4("adder4"), 
 
   i30Out("i30Out"), i14Out("i14Out"), i13Out("i13Out"), i12Out("i12Out"),
   i6Out("i6Out"), i5Out("i5Out"), i4Out("i4Out"), i3Out("i3Out"), i2Out("i2Out"),
   imoutrd("imOutrd"), imoutrs2("imOutrs2"), imoutrs1("imOutrs1"), 
-  imoutgen("imOutgen") {//inicializar puertos
+  imoutgen("imOutgen"), adder4Out("adder4Out") {//inicializar puertos
 
   SC_METHOD(operation); // cuando las variables cambien ejecuta esa funcion
   sensitive << i30    << i14     << i13 << i12
@@ -49,7 +49,7 @@ void pipeline_if_id::operation() { //  variableout.write(dato in);
   imoutrs2.write(iminrs2.read());
   imoutrd.write(iminrd.read());
   imoutgen.write(imingen.read());
-
+  adder4Out.write(adder4.read());
 }
 
 
